@@ -9,3 +9,5 @@ def search(str)
 return storelist
 str 可能是商店類別或名城其中幾個字
 
+# 預期頁面
+IMG_2078.png
