@@ -41,7 +41,7 @@ class SignPage extends StatelessWidget {
                             Text("Login",
                               style: TextStyle(
                               color: Colors.black,
-                              fontSize: 25,
+                              fontSize: 40,
                               fontFamily: 'Courgette',
                               ),
                             )
@@ -119,7 +119,7 @@ class SignPage extends StatelessWidget {
                                 },
                                 child: Text(
                                   'New User? Create Account',
-                                  style: TextStyle(color: Colors.black87, fontSize: 20),
+                                  style: TextStyle(color: Colors.black87, fontSize: 10),
                                 ),
                               ),
                             ),
