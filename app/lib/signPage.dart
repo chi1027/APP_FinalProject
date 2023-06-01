@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:innovative_mobile_networks_apps/createAccountPage.dart';
+import 'createAccountPage.dart';
 
 TextEditingController _account = TextEditingController();
 TextEditingController _password = TextEditingController();
@@ -107,7 +109,20 @@ class SignPage extends StatelessWidget {
                             SizedBox(
                               height: 130,
                             ),
-                            Text('New User? Create Account')
+                            Container(
+                              height: 50,
+                              width: 250,
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context, MaterialPageRoute(builder: (context) => CreateAccountPage()));
+                                },
+                                child: Text(
+                                  'New User? Create Account',
+                                  style: TextStyle(color: Colors.black87, fontSize: 20),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),

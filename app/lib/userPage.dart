@@ -237,7 +237,6 @@ class UserPage extends StatelessWidget {
                                         ),
                                       ],
                                     )
-
                                 )
                             ),
                           ),

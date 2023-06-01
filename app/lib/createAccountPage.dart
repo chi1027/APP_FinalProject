@@ -1,320 +1,279 @@
 import 'package:flutter/material.dart';
+import 'package/alertDialog.dart';
+
+TextEditingController _context = TextEditingController();
+
 class CreateAccountPage extends StatelessWidget {
-  var name = "OOO";
+  var store = "maco";
   var id = 1;
+  List<Widget> _getGradeStar(double score, int total) {
+    List<Widget> _list = List<Widget>.empty(growable: true);
+    for (var i = 0; i < total; i++) {
+      double factor = (score - i);
+      if (factor >= 1) {
+        factor = 1.0;
+      }else if (factor < 0){
+        factor = 0;
+      }
+      Stack _st = Stack(
+        children: <Widget>[
+          Icon(
+            Icons.star,
+            color: Colors.grey,
+          ),
+          ClipRect(
+              child: Align(
+                alignment: Alignment.topLeft,
+                widthFactor: factor,
+                child: Icon(
+                  Icons.star,
+                  color: Colors.redAccent,
+                ),
+              )
+          )
+        ],
+      );
+      _list.add(_st);
+    }
+    return _list;
+  }
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        bottomNavigationBar: BottomNavigationBar(
-          fixedColor: Colors.black12,
-          backgroundColor: Colors.white60,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.map,
-                  color: Colors.black26,
-                ),
-                label: 'map'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                  color: Colors.black26,
-                ),
-                label: 'Home',
-                activeIcon: Icon(Icons.home, color: Colors.black87)),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.account_circle,
-                  color: Colors.black26,
-                ),
-                label: 'Account')
-          ],
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.only(left:20, right: 20, top: 10, bottom: 10),
-            child: Column(
-              children: [
-                Expanded(flex:1,
-                  child: Column(
-                      children: [
-                        //Spacer(flex: 10,),
-                        Row(
-                            children: [
-                              Flexible(
-                                  flex: 5,
-                                  child: AspectRatio(
-                                    aspectRatio: 1 / 1,
-                                    child: Material(
-                                      //elevation: 10,
-                                      borderRadius: BorderRadius.circular(10),
-                                      //color: Colors.grey,
-                                      child: IconButton(
-                                        icon: Icon(Icons.account_circle,
-                                          color: Colors.black38,
-                                          size: 100,),
-                                        onPressed: () => {},
-                                      ),
-                                    ),
-                                  )
-                              ),
-                              Spacer(flex: 2,),
-                              Flexible(
-                                flex: 10,
-                                child: Material(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: const BorderSide(color: Colors.white60, width: 1),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Column(
-                                        children: [
-                                          Text(""),
-                                          Text(
-                                              name,
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 25,
-                                                fontFamily: 'Courgette',
-                                              ),
-                                              textAlign: TextAlign.center
-                                          ),
-                                          Text(
-                                              "ID : " + id.toString(),
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 25,
-                                                fontFamily: 'Courgette',
-                                              ),
-                                              textAlign: TextAlign.center
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                ),
-                              )
-                            ]
-                        ),
-
-                      ]
-                  ),
-                ),
-                Expanded(
-                    flex:3,
+    return
+      Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.only(left:20, right: 20, top: 10, bottom: 10),
+              child: Column(
+                children: [
+                  Expanded(flex:2,
                     child: Column(
+                        children: [
+                          //Spacer(flex: 10,),
+                          Flexible(
+                              flex: 6,
+                              child:
+                              Text(
+                                  "Create Account",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 40,
+                                    fontFamily: 'Courgette',
+                                  ),
+                                  textAlign: TextAlign.center
+                              )
+                          ),
+                        ]
+                    ),
+                  ),
+                  Spacer(flex: 1,),
+                  Expanded(
+                    flex:20,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          flex: 5,
-                          child: Material(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: const BorderSide(color: Colors.white60, width: 1),
-                            ),
-                            child: Container(
-                                child: MaterialButton(
-                                    padding: EdgeInsets.zero,
-                                    color: Colors.white60,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                        side:  const BorderSide(color: Colors.black38, width: 1)
+                        Flexible(
+                            flex:3,
+                            fit : FlexFit.loose,
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  flex:4,
+                                  child: Text(
+                                      "Name : ",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 30,
+                                        fontFamily: 'Courgette',
+                                      ),
+                                      textAlign: TextAlign.center
+                                  ),
+                                ),
+                                Flexible(
+                                  flex:6,
+                                  child: TextField(
+                                    autofocus: false,
+                                    controller: _context,
+                                    keyboardType: TextInputType.text,
+                                    maxLines: 1,
+                                    decoration: InputDecoration(
+                                        hintText: 'Type you name.',
+                                        hintStyle: TextStyle(color: Colors.grey)),
+                                    style: TextStyle(
+                                      color: Colors.black12,
+                                      fontSize: 20,
+                                      fontFamily: 'Courgette',
                                     ),
-                                    elevation: 0,
-                                    onPressed: () => {},
-                                    child: Row(
-                                      children: [
-                                        Spacer(flex: 5,),
-                                        Flexible(
-                                            flex: 5,
-                                            fit: FlexFit.tight,
-                                            child:
-                                            Text("Award",
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 30,
-                                                  fontFamily: 'Courgette',
-                                                )
-                                            )
-                                        ),
-                                        Spacer(flex: 4,),
-                                        Flexible(
-                                            flex: 5,
-                                            fit: FlexFit.loose,
-                                            child: Icon(
-                                              Icons.military_tech,
-                                              color: Colors.deepOrange[200],
-                                              size: 70,
-                                            )
-                                        ),
-                                      ],
-                                    )
-
-                                )
-                            ),
-                          ),
+                                  ),
+                                ),
+                              ],
+                            )
                         ),
                         Spacer(flex: 1,),
-                        Expanded(
-                          flex: 5,
-                          child: Material(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: const BorderSide(color: Colors.white60, width: 1),
-                            ),
-                            child: Container(
-                                child: MaterialButton(
-                                    padding: EdgeInsets.zero,
-                                    color: Colors.white60,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                        side:  const BorderSide(color: Colors.black38, width: 1)
+                        Flexible(
+                            flex:3,
+                            fit : FlexFit.loose,
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  flex: 4,
+                                  fit : FlexFit.loose,
+                                  child: Text(
+                                      "Phone : ",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 30,
+                                        fontFamily: 'Courgette',
+                                      ),
+                                      textAlign: TextAlign.center
+                                  ),
+                                ),
+                                Flexible(
+                                  flex: 6,
+                                  child: TextField(
+                                    autofocus: false,
+                                    controller: _context,
+                                    keyboardType: TextInputType.text,
+                                    maxLines: 1,
+                                    decoration: InputDecoration(
+                                        hintText: 'Type your phone',
+                                        hintStyle: TextStyle(color: Colors.grey)),
+                                    style: TextStyle(
+                                      color: Colors.black12,
+                                      fontSize: 20,
+                                      fontFamily: 'Courgette',
                                     ),
-                                    elevation: 0,
-                                    onPressed: () => {},
-                                    child: Row(
-                                      children: [
-                                        Spacer(flex: 4,),
-                                        Flexible(
-                                            flex: 8,
-                                            fit: FlexFit.tight,
-                                            child:
-                                            Text("comment",
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 30,
-                                                  fontFamily: 'Courgette',
-                                                )
-                                            )
-                                        ),
-                                        Spacer(flex: 4,),
-                                        Flexible(
-                                            flex: 5,
-                                            fit: FlexFit.loose,
-                                            child: Icon(
-                                              Icons.reviews,
-                                              color: Colors.blue[200],
-                                              size: 50,
-                                            )
-                                        ),
-                                      ],
-                                    )
-
-                                )
-                            ),
-                          ),
+                                  ),
+                                ),
+                              ],
+                            )
                         ),
                         Spacer(flex: 1,),
-                        Expanded(
-                          flex: 5,
-                          child: Material(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: const BorderSide(color: Colors.white60, width: 1),
-                            ),
-                            child: Container(
-                                child: MaterialButton(
-                                    padding: EdgeInsets.zero,
-                                    color: Colors.white60,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                        side:  const BorderSide(color: Colors.black38, width: 1)
+                        Flexible(
+                            flex:3,
+                            fit : FlexFit.loose,
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  flex: 4,
+                                  fit : FlexFit.loose,
+                                  child: Text(
+                                      "Password : ",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 30,
+                                        fontFamily: 'Courgette',
+                                      ),
+                                      textAlign: TextAlign.center
+                                  ),
+                                ),
+                                Flexible(
+                                  flex: 5,
+                                  child: TextField(
+                                    autofocus: false,
+                                    controller: _context,
+                                    keyboardType: TextInputType.text,
+                                    maxLines: 1,
+                                    decoration: InputDecoration(
+                                        hintText: 'Type your password',
+                                        hintStyle: TextStyle(color: Colors.grey)),
+                                    style: TextStyle(
+                                      color: Colors.black12,
+                                      fontSize: 20,
+                                      fontFamily: 'Courgette',
                                     ),
-                                    elevation: 0,
-                                    onPressed: () => {},
-                                    child: Row(
-                                      children: [
-                                        Spacer(flex: 5,),
-                                        Flexible(
-                                            flex: 7,
-                                            fit: FlexFit.tight,
-                                            child:
-                                            Text("Favorite",
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 30,
-                                                  fontFamily: 'Courgette',
-                                                )
-                                            )
-                                        ),
-                                        Spacer(flex: 5,),
-                                        Flexible(
-                                            flex: 5,
-                                            fit: FlexFit.loose,
-                                            child: Icon(
-                                              Icons.favorite,
-                                              color: Colors.red[200],
-                                              size: 50,
-                                            )
-                                        ),
-                                      ],
-                                    )
-
-                                )
-                            ),
-                          ),
+                                  ),
+                                ),
+                              ],
+                            )
                         ),
                         Spacer(flex: 1,),
-                        Expanded(
-                          flex: 5,
-                          child: Material(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: const BorderSide(color: Colors.white60, width: 1),
-                            ),
-                            child: Container(
-                                child: MaterialButton(
-                                    padding: EdgeInsets.zero,
-                                    color: Colors.white60,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                        side:  const BorderSide(color: Colors.black38, width: 1)
+                        Flexible(
+                            flex:3,
+                            fit : FlexFit.loose,
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  flex: 4,
+                                  fit : FlexFit.loose,
+                                  child: Text(
+                                      "again : ",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 30,
+                                        fontFamily: 'Courgette',
+                                      ),
+                                      textAlign: TextAlign.center
+                                  ),
+                                ),
+                                Flexible(
+                                  flex: 10,
+                                  child: TextField(
+                                    autofocus: false,
+                                    controller: _context,
+                                    keyboardType: TextInputType.text,
+                                    maxLines: 1,
+                                    decoration: InputDecoration(
+                                        hintText: 'Type your password again',
+                                        hintStyle: TextStyle(color: Colors.grey)),
+                                    style: TextStyle(
+                                      color: Colors.black12,
+                                      fontSize: 20,
+                                      fontFamily: 'Courgette',
                                     ),
-                                    elevation: 0,
-                                    onPressed: () => {},
-                                    child: Row(
-                                      children: [
-                                        Spacer(flex: 5,),
-                                        Flexible(
-                                            flex: 6,
-                                            fit: FlexFit.tight,
-                                            child:
-                                            Text("Logout",
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 30,
-                                                  fontFamily: 'Courgette',
-                                                )
-                                            )
-                                        ),
-                                        Spacer(flex: 5,),
-                                        Flexible(
-                                            flex: 4,
-                                            fit: FlexFit.loose,
-                                            child: Icon(
-                                              Icons.logout,
-                                              color: Colors.black38,
-                                              size: 50,
-                                            )
+                                  ),
+                                ),
+                              ],
+                            )
+                        ),
+                        Spacer(flex: 2,),
+                        Flexible(
+                          flex: 10,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                child: Text('accept'),
+                                onPressed: () {
+                                  bool flag = false;
+                                  if(flag){
+                                    Navigator.pop(context);
+                                  }
+                                  else {
+                                    showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) => AlertDialog(
+                                      title: const Text('AlertDialog'),
+                                      content: const Text('name have already register.'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () => Navigator.pop(context, 'OK'),
+                                          child: const Text('OK'),
                                         ),
                                       ],
-                                    )
-
-                                )
-                            ),
-                          ),
-                        ),
-                        Spacer(flex: 5,),
+                                    ),
+                                    );
+                                  }
+                                },
+                              ),
+                              ElevatedButton(
+                                child: Text('back'),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          )
+                        )
                       ],
-                    )
-                )
-              ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        )
-    );
+          )
+      );
   }
 }

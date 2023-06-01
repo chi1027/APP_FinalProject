@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import "HomePage.dart";
 import "userPage.dart";
 import 'mapPage.dart';
+import 'createAccountPage.dart';
 import 'commentPage.dart';
 import 'package/Flutter_Rating_Bar.dart';
 //import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -19,118 +20,51 @@ class MyApp extends StatelessWidget {
         colorSchemeSeed: const Color(0xff6750a4),
         useMaterial3: true,
       ),
-      home: CommentPage(),
+      home: BottomNavigation(),
     );
   }
 }
 
-class DemoIconToggleButtons extends StatefulWidget {
-  const DemoIconToggleButtons({super.key});
+class BottomNavigation extends StatefulWidget {
+  const BottomNavigation({super.key});
 
   @override
-  State<DemoIconToggleButtons> createState() => _DemoIconToggleButtonsState();
+  State<BottomNavigation> createState() =>
+      _BottomNavigationBarState();
 }
 
-class _DemoIconToggleButtonsState extends State<DemoIconToggleButtons> {
-  bool standardSelected = false;
-  bool filledSelected = false;
-  bool tonalSelected = false;
-  bool outlinedSelected = false;
-
+class _BottomNavigationBarState
+    extends State<BottomNavigation> {
+  int _selectedIndex = 1;
+  List<Widget> page = <Widget>[MapPage(),HomePage(),UserPage()];
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            IconButton(
-              isSelected: standardSelected,
-              icon: const Icon(Icons.settings_outlined),
-              selectedIcon: const Icon(Icons.settings),
-              onPressed: () {
-                setState(() {
-                  standardSelected = !standardSelected;
-                });
-              },
+    return Scaffold(
+      body: page[_selectedIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.map),
+              label: 'Map',
             ),
-            const SizedBox(width: 10),
-            IconButton(
-              isSelected: standardSelected,
-              icon: const Icon(Icons.settings_outlined),
-              selectedIcon: const Icon(Icons.settings),
-              onPressed: null,
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle),
+              label: 'User',
             ),
           ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            IconButton.filled(
-              isSelected: filledSelected,
-              icon: const Icon(Icons.settings_outlined),
-              selectedIcon: const Icon(Icons.settings),
-              onPressed: () {
-                setState(() {
-                  filledSelected = !filledSelected;
-                });
-              },
-            ),
-            const SizedBox(width: 10),
-            IconButton.filled(
-              isSelected: filledSelected,
-              icon: const Icon(Icons.settings_outlined),
-              selectedIcon: const Icon(Icons.settings),
-              onPressed: null,
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            IconButton.filledTonal(
-              isSelected: tonalSelected,
-              icon: const Icon(Icons.settings_outlined),
-              selectedIcon: const Icon(Icons.settings),
-              onPressed: () {
-                setState(() {
-                  tonalSelected = !tonalSelected;
-                });
-              },
-            ),
-            const SizedBox(width: 10),
-            IconButton.filledTonal(
-              isSelected: tonalSelected,
-              icon: const Icon(Icons.settings_outlined),
-              selectedIcon: const Icon(Icons.settings),
-              onPressed: null,
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            IconButton.outlined(
-              isSelected: outlinedSelected,
-              icon: const Icon(Icons.settings_outlined),
-              selectedIcon: const Icon(Icons.settings),
-              onPressed: () {
-                setState(() {
-                  outlinedSelected = !outlinedSelected;
-                });
-              },
-            ),
-            const SizedBox(width: 10),
-            IconButton.outlined(
-              isSelected: outlinedSelected,
-              icon: const Icon(Icons.settings_outlined),
-              selectedIcon: const Icon(Icons.settings),
-              onPressed: null,
-            ),
-          ],
-        ),
-      ],
+          selectedItemColor: Colors.amber[800],
+          onTap: _onItemTapped,
+      ),
     );
   }
 }
