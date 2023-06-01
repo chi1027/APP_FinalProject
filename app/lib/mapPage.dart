@@ -1,318 +1,177 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-class MapPage extends StatelessWidget {
-  var name = "OOO";
-  var id = 1;
-  // This widget is the root of your application.
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:custom_info_window/custom_info_window.dart';
+
+class MapMarker{
+  late LatLng latLang;
+  late String name;
+  late String genre;
+
+  MapMarker({
+    required this.latLang,
+    required this.name,
+    required this.genre,
+  });
+}
+
+class MapPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
+  _MapScreenState createState() => _MapScreenState();
+}
+
+class _MapScreenState extends State<MapPage> {
+  Completer<GoogleMapController> _controller = Completer();
+  TextEditingController _searchController = TextEditingController();
+
+
+  static LatLng _center = const LatLng(22.997641853233787, 120.2206849481563);
+  // CustomInfoWindowController _customInfoWindowController = CustomInfoWindowController();
+
+  List<Marker> allMarkers = [];
+  // Test data
+  List<MapMarker> mapMarkerTemp = [
+    MapMarker(
+      latLang: LatLng(22.99268214404576, 120.22167562515983),
+      name: "御私藏",
+      genre: "珍珠奶茶店",
+    ),
+    MapMarker(
+      latLang: LatLng(22.992964815833684, 120.22146017591658),
+      name: "植作茶《臺南長榮店》",
+      genre: "珍珠奶茶店",
+    ),
+    MapMarker(
+      latLang: LatLng(22.993581845376646, 120.22603831398831,),
+      name: '在島之後After Island. 餐酒館',
+      genre: '餐酒館'
+    ),
+  ];
+
+  //Marker API
+  void loadMarker(List<MapMarker> mapMarker){
+    for(int i=0; i<mapMarker.length; i++){
+      allMarkers.add(Marker(
+        markerId: MarkerId(i.toString()),
+        position: mapMarker[i].latLang, 
+        icon: BitmapDescriptor.defaultMarker,
+        infoWindow: InfoWindow(
+          title: mapMarker[i].name,
+          snippet: mapMarker[i].genre,
+        ),
+        onTap:(){
+          _center = mapMarker[i].latLang;
+          // _customInfoWindowController.addInfoWindow!(
+          //   const Text("hello"),
+          //   mapMarker[i].latLang,
+          // );
+        },
+      ));
+    }
+    setState(() {
+      _center = mapMarker[0].latLang; // 將畫面中心移到第一個點
+    });
+  }
+  
+  void clearMarkers(){
+    setState(() {
+      allMarkers.clear();
+    });
+  }
+
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller); 
+  }
+
+
+
+  // Current location API
+  Future<Position> _getCurrentLocation() async{
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if(!serviceEnabled){
+      return Future.error('Location services are disabled.');
+    }
+    LocationPermission permission = await Geolocator.checkPermission();
+    if(permission == LocationPermission.denied){
+      permission = await Geolocator.requestPermission();
+      if(permission == LocationPermission.denied){
+        return Future.error('Location permissions are denied');
+      }
+    }
+    if(permission == LocationPermission.deniedForever){
+      return Future.error(
+        'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    return await Geolocator.getCurrentPosition();
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    loadMarker(mapMarkerTemp);
+    // allMarkers.addAll(list);
+  }
+
+@override
+Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        bottomNavigationBar: BottomNavigationBar(
-          fixedColor: Colors.black12,
-          backgroundColor: Colors.white60,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.map,
-                  color: Colors.black26,
-                ),
-                label: 'map'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                  color: Colors.black26,
-                ),
-                label: 'Home',
-                activeIcon: Icon(Icons.home, color: Colors.black87)),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.account_circle,
-                  color: Colors.black26,
-                ),
-                label: 'Account')
-          ],
-        ),
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.only(left:20, right: 20, top: 10, bottom: 10),
             child: Column(
               children: [
-                Expanded(flex:1,
+                Expanded(flex:2,
                   child: Column(
-                      children: [
-                        //Spacer(flex: 10,),
-                        Row(
-                            children: [
-                              Flexible(
-                                  flex: 5,
-                                  child: AspectRatio(
-                                    aspectRatio: 1 / 1,
-                                    child: Material(
-                                      //elevation: 10,
-                                      borderRadius: BorderRadius.circular(10),
-                                      //color: Colors.grey,
-                                      child: IconButton(
-                                        icon: Icon(Icons.account_circle,
-                                          color: Colors.black38,
-                                          size: 100,),
-                                        onPressed: () => {},
+                    children: [
+                      Spacer(flex: 5,),
+                      Row(
+                          children: [
+                            Flexible(
+                              flex:17,
+                              child: Material(
+                                elevation: 5,
+                                borderRadius: BorderRadius.circular(6),
+                                child: TextFormField(
+                                  autofocus: false, //是否將屬標預設放在搜尋欄位
+                                  decoration: InputDecoration(
+                                      prefixIcon: Icon(
+                                        Icons.search,
+                                        color: Colors.lightBlueAccent,
                                       ),
-                                    ),
-                                  )
-                              ),
-                              Spacer(flex: 2,),
-                              Flexible(
-                                flex: 10,
-                                child: Material(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: const BorderSide(color: Colors.white60, width: 1),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Column(
-                                        children: [
-                                          Text(""),
-                                          Text(
-                                              name,
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 25,
-                                                fontFamily: 'Courgette',
-                                              ),
-                                              textAlign: TextAlign.center
-                                          ),
-                                          Text(
-                                              "ID : " + id.toString(),
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 25,
-                                                fontFamily: 'Courgette',
-                                              ),
-                                              textAlign: TextAlign.center
-                                          )
-                                        ],
-                                      ),
-                                    )
+                                      disabledBorder: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                      hintText: 'Search your favorite store',
+                                      hintStyle: TextStyle(color: Colors.grey)),
                                 ),
-                              )
-                            ]
-                        ),
-
-                      ]
+                              ),
+                            ),
+                          ]
+                      ),
+                      Spacer(flex: 5,)
+                    ],
                   ),
                 ),
                 Expanded(
-                    flex:3,
-                    child: Column(
-                      children: [
-                        Expanded(
-                          flex: 5,
-                          child: Material(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: const BorderSide(color: Colors.white60, width: 1),
-                            ),
-                            child: Container(
-                                child: MaterialButton(
-                                    padding: EdgeInsets.zero,
-                                    color: Colors.white60,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                        side:  const BorderSide(color: Colors.black38, width: 1)
-                                    ),
-                                    elevation: 0,
-                                    onPressed: () => {},
-                                    child: Row(
-                                      children: [
-                                        Spacer(flex: 5,),
-                                        Flexible(
-                                            flex: 5,
-                                            fit: FlexFit.tight,
-                                            child:
-                                            Text("Award",
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 30,
-                                                  fontFamily: 'Courgette',
-                                                )
-                                            )
-                                        ),
-                                        Spacer(flex: 4,),
-                                        Flexible(
-                                            flex: 5,
-                                            fit: FlexFit.loose,
-                                            child: Icon(
-                                              Icons.military_tech,
-                                              color: Colors.deepOrange[200],
-                                              size: 70,
-                                            )
-                                        ),
-                                      ],
-                                    )
-
-                                )
-                            ),
-                          ),
-                        ),
-                        Spacer(flex: 1,),
-                        Expanded(
-                          flex: 5,
-                          child: Material(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: const BorderSide(color: Colors.white60, width: 1),
-                            ),
-                            child: Container(
-                                child: MaterialButton(
-                                    padding: EdgeInsets.zero,
-                                    color: Colors.white60,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                        side:  const BorderSide(color: Colors.black38, width: 1)
-                                    ),
-                                    elevation: 0,
-                                    onPressed: () => {},
-                                    child: Row(
-                                      children: [
-                                        Spacer(flex: 4,),
-                                        Flexible(
-                                            flex: 8,
-                                            fit: FlexFit.tight,
-                                            child:
-                                            Text("comment",
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 30,
-                                                  fontFamily: 'Courgette',
-                                                )
-                                            )
-                                        ),
-                                        Spacer(flex: 4,),
-                                        Flexible(
-                                            flex: 5,
-                                            fit: FlexFit.loose,
-                                            child: Icon(
-                                              Icons.reviews,
-                                              color: Colors.blue[200],
-                                              size: 50,
-                                            )
-                                        ),
-                                      ],
-                                    )
-                                )
-                            ),
-                          ),
-                        ),
-                        Spacer(flex: 1,),
-                        Expanded(
-                          flex: 5,
-                          child: Material(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: const BorderSide(color: Colors.white60, width: 1),
-                            ),
-                            child: Container(
-                                child: MaterialButton(
-                                    padding: EdgeInsets.zero,
-                                    color: Colors.white60,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                        side:  const BorderSide(color: Colors.black38, width: 1)
-                                    ),
-                                    elevation: 0,
-                                    onPressed: () => {},
-                                    child: Row(
-                                      children: [
-                                        Spacer(flex: 5,),
-                                        Flexible(
-                                            flex: 7,
-                                            fit: FlexFit.tight,
-                                            child:
-                                            Text("Favorite",
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 30,
-                                                  fontFamily: 'Courgette',
-                                                )
-                                            )
-                                        ),
-                                        Spacer(flex: 5,),
-                                        Flexible(
-                                            flex: 5,
-                                            fit: FlexFit.loose,
-                                            child: Icon(
-                                              Icons.favorite,
-                                              color: Colors.red[200],
-                                              size: 50,
-                                            )
-                                        ),
-                                      ],
-                                    )
-
-                                )
-                            ),
-                          ),
-                        ),
-                        Spacer(flex: 1,),
-                        Expanded(
-                          flex: 5,
-                          child: Material(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: const BorderSide(color: Colors.white60, width: 1),
-                            ),
-                            child: Container(
-                                child: MaterialButton(
-                                    padding: EdgeInsets.zero,
-                                    color: Colors.white60,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                        side:  const BorderSide(color: Colors.black38, width: 1)
-                                    ),
-                                    elevation: 0,
-                                    onPressed: () => {},
-                                    child: Row(
-                                      children: [
-                                        Spacer(flex: 5,),
-                                        Flexible(
-                                            flex: 6,
-                                            fit: FlexFit.tight,
-                                            child:
-                                            Text("Logout",
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 30,
-                                                  fontFamily: 'Courgette',
-                                                )
-                                            )
-                                        ),
-                                        Spacer(flex: 5,),
-                                        Flexible(
-                                            flex: 4,
-                                            fit: FlexFit.loose,
-                                            child: Icon(
-                                              Icons.logout,
-                                              color: Colors.black38,
-                                              size: 50,
-                                            )
-                                        ),
-                                      ],
-                                    )
-
-                                )
-                            ),
-                          ),
-                        ),
-                        Spacer(flex: 5,),
-                      ],
-                    )
-                )
+                  flex: 12,
+                  child: GoogleMap(
+                  onMapCreated: _onMapCreated,
+                  initialCameraPosition: CameraPosition(
+                    target: _center,
+                    zoom: 17.0,
+                  ),
+                  markers: Set<Marker>.of(allMarkers),
+                  myLocationButtonEnabled: true,
+                  mapType: MapType.normal,
+                  myLocationEnabled: true,
+                  ),
+                ),
               ],
             ),
           ),
+
         )
     );
   }
