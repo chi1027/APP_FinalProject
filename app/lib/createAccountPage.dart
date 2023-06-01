@@ -6,37 +6,6 @@ TextEditingController _context = TextEditingController();
 class CreateAccountPage extends StatelessWidget {
   var store = "maco";
   var id = 1;
-  List<Widget> _getGradeStar(double score, int total) {
-    List<Widget> _list = List<Widget>.empty(growable: true);
-    for (var i = 0; i < total; i++) {
-      double factor = (score - i);
-      if (factor >= 1) {
-        factor = 1.0;
-      }else if (factor < 0){
-        factor = 0;
-      }
-      Stack _st = Stack(
-        children: <Widget>[
-          Icon(
-            Icons.star,
-            color: Colors.grey,
-          ),
-          ClipRect(
-              child: Align(
-                alignment: Alignment.topLeft,
-                widthFactor: factor,
-                child: Icon(
-                  Icons.star,
-                  color: Colors.redAccent,
-                ),
-              )
-          )
-        ],
-      );
-      _list.add(_st);
-    }
-    return _list;
-  }
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -75,24 +44,24 @@ class CreateAccountPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Flexible(
-                            flex:3,
+                            flex:5,
                             fit : FlexFit.loose,
-                            child: Row(
+                            child: Column(
                               children: [
                                 Flexible(
-                                  flex:4,
+                                  flex:10,
                                   child: Text(
                                       "Name : ",
                                       style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 30,
+                                        fontSize: 25,
                                         fontFamily: 'Courgette',
                                       ),
                                       textAlign: TextAlign.center
                                   ),
                                 ),
                                 Flexible(
-                                  flex:6,
+                                  flex:8,
                                   child: TextField(
                                     autofocus: false,
                                     controller: _context,
@@ -113,25 +82,25 @@ class CreateAccountPage extends StatelessWidget {
                         ),
                         Spacer(flex: 1,),
                         Flexible(
-                            flex:3,
+                            flex:5,
                             fit : FlexFit.loose,
-                            child: Row(
+                            child: Column(
                               children: [
                                 Flexible(
-                                  flex: 4,
+                                  flex: 10,
                                   fit : FlexFit.loose,
                                   child: Text(
                                       "Phone : ",
                                       style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 30,
+                                        fontSize: 25,
                                         fontFamily: 'Courgette',
                                       ),
                                       textAlign: TextAlign.center
                                   ),
                                 ),
                                 Flexible(
-                                  flex: 6,
+                                  flex: 8,
                                   child: TextField(
                                     autofocus: false,
                                     controller: _context,
@@ -152,25 +121,25 @@ class CreateAccountPage extends StatelessWidget {
                         ),
                         Spacer(flex: 1,),
                         Flexible(
-                            flex:3,
+                            flex:5,
                             fit : FlexFit.loose,
-                            child: Row(
+                            child: Column(
                               children: [
                                 Flexible(
-                                  flex: 4,
+                                  flex: 10,
                                   fit : FlexFit.loose,
                                   child: Text(
                                       "Password : ",
                                       style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 30,
+                                        fontSize: 25,
                                         fontFamily: 'Courgette',
                                       ),
                                       textAlign: TextAlign.center
                                   ),
                                 ),
                                 Flexible(
-                                  flex: 5,
+                                  flex: 10,
                                   child: TextField(
                                     autofocus: false,
                                     controller: _context,
@@ -191,18 +160,18 @@ class CreateAccountPage extends StatelessWidget {
                         ),
                         Spacer(flex: 1,),
                         Flexible(
-                            flex:3,
+                            flex:5,
                             fit : FlexFit.loose,
-                            child: Row(
+                            child: Column(
                               children: [
                                 Flexible(
-                                  flex: 4,
+                                  flex: 10,
                                   fit : FlexFit.loose,
                                   child: Text(
-                                      "again : ",
+                                      "Password again : ",
                                       style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 30,
+                                        fontSize: 25,
                                         fontFamily: 'Courgette',
                                       ),
                                       textAlign: TextAlign.center
@@ -232,8 +201,9 @@ class CreateAccountPage extends StatelessWidget {
                         Flexible(
                           flex: 10,
                           child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              Spacer(flex: 1),
                               ElevatedButton(
                                 child: Text('accept'),
                                 onPressed: () {
@@ -258,12 +228,14 @@ class CreateAccountPage extends StatelessWidget {
                                   }
                                 },
                               ),
+                              Spacer(flex: 1),
                               ElevatedButton(
                                 child: Text('back'),
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
                               ),
+                              Spacer(flex: 1),
                             ],
                           )
                         )
