@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'searchPage.dart';
 
 class HomePage extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,21 +47,24 @@ class HomePage extends StatelessWidget {
                 ),
                 Expanded(
                   flex:12,
-                  child: Container(
-                    child: MaterialButton(
-                      padding: EdgeInsets.zero,
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(15),
-                              bottomLeft: Radius.circular(15))),
-                      elevation: 0,
-                      onPressed: () => {},
-                      child: Column(
-                        children: [
-                          Flexible(
-                            flex: 5,
-                            child: Column(
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 500,
+                        height: 150,
+                        child: Container(
+                          child: MaterialButton(
+                            padding: EdgeInsets.zero,
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(15),
+                                    bottomLeft: Radius.circular(15))),
+                            elevation: 0,
+                            onPressed: () => {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage(data:"drink")))
+                            },
+                            child:Column(
                               children: [
                                 AspectRatio(
                                   aspectRatio: 5 / 2,
@@ -72,39 +77,73 @@ class HomePage extends StatelessWidget {
                                 ),],
                             )
                           ),
-                          Spacer(flex: 1),
-                          Flexible(
-                              flex: 5,
-                              child: Column(
-                                children: [
-                                  AspectRatio(
-                                    aspectRatio: 5 / 2,
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(20),
-                                        child: Image.asset(
-                                          'images/bar.jpg',
-                                          fit: BoxFit.fitHeight,
-                                        )),
-                                  ),],
-                              )),
-                          Spacer(flex: 1),
-                          Flexible(
-                              flex: 5,
-                              child: Column(
-                                children: [
-                                  AspectRatio(
-                                    aspectRatio: 5 / 2,
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(20),
-                                        child: Image.asset(
-                                          'images/cafe.jpg',
-                                          fit: BoxFit.fitHeight,
-                                        )),
-                                  ),],
-                              )),
-                        ],
+                        )
                       ),
-                    ),
+                      Spacer(flex: 1),
+                      Container(
+                          width: 500,
+                          height: 150,
+                          child: Container(
+                            child: MaterialButton(
+                                padding: EdgeInsets.zero,
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(15),
+                                        bottomLeft: Radius.circular(15))),
+                                elevation: 0,
+                                onPressed: () => {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage(data:"bar")))
+                                },
+                                child:Column(
+                                  children: [
+                                    AspectRatio(
+                                      aspectRatio: 5 / 2,
+                                      child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(20),
+                                          child: Image.asset(
+                                            'images/bar.jpg',
+                                            fit: BoxFit.fitHeight,
+                                          )),
+                                    ),],
+                                )
+                            ),
+                          )
+                      ),
+                      Spacer(flex: 1),
+                      Container(
+                          width: 500,
+                          height: 150,
+                          child: Container(
+                            child: MaterialButton(
+                                padding: EdgeInsets.zero,
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(15),
+                                        bottomLeft: Radius.circular(15))),
+                                elevation: 0,
+                                onPressed: () => {
+                                Future.delayed(Duration.zero, () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage(data:"cafe")));
+                                })
+                                },
+                                child:Column(
+                                  children: [
+                                    AspectRatio(
+                                      aspectRatio: 5 / 2,
+                                      child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(20),
+                                          child: Image.asset(
+                                            'images/cafe.jpg',
+                                            fit: BoxFit.fitHeight,
+                                          )),
+                                    ),],
+                                )
+                            ),
+                          )
+                      ),
+                    ],
                   ),
                 ),
               ],
