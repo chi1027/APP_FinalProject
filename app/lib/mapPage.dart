@@ -114,49 +114,51 @@ class _MapScreenState extends State<MapPage> {
   }
 
 @override
-Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.only(left:20, right: 20, top: 10, bottom: 10),
-            child: Column(
-              children: [
-                Expanded(flex:2,
-                  child: Column(
-                    children: [
-                      Spacer(flex: 5,),
-                      Row(
-                          children: [
-                            Flexible(
-                              flex:17,
-                              child: Material(
-                                elevation: 5,
-                                borderRadius: BorderRadius.circular(6),
-                                child: TextFormField(
-                                  autofocus: false, //是否將屬標預設放在搜尋欄位
-                                  decoration: InputDecoration(
-                                      prefixIcon: Icon(
-                                        Icons.search,
-                                        color: Colors.lightBlueAccent,
-                                      ),
-                                      disabledBorder: InputBorder.none,
-                                      enabledBorder: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                      hintText: 'Search your favorite store',
-                                      hintStyle: TextStyle(color: Colors.grey)),
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+          child: Column(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: [
+                    Spacer(flex: 5),
+                    Row(
+                      children: [
+                        Flexible(
+                          flex: 17,
+                          child: Material(
+                            elevation: 5,
+                            borderRadius: BorderRadius.circular(6),
+                            child: TextFormField(
+                              autofocus: false,
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                  Icons.search,
+                                  color: Colors.lightBlueAccent,
                                 ),
+                                disabledBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                hintText: 'Search your favorite store',
+                                hintStyle: TextStyle(color: Colors.grey),
                               ),
                             ),
-                          ]
-                      ),
-                      Spacer(flex: 5,)
-                    ],
-                  ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Spacer(flex: 5),
+                  ],
                 ),
-                Expanded(
-                  flex: 12,
-                  child: GoogleMap(
+              ),
+              Expanded(
+                flex: 12,
+                child: GoogleMap(
                   onMapCreated: _onMapCreated,
                   initialCameraPosition: CameraPosition(
                     target: _center,
@@ -166,13 +168,22 @@ Widget build(BuildContext context) {
                   myLocationButtonEnabled: true,
                   mapType: MapType.normal,
                   myLocationEnabled: true,
-                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-
-        )
+        ),
+      ),
+      // floatingActionButton: FloatingActionButton(
+      //         onPressed: () {
+      //           Position position = _getCurrentLocation() as Position;
+      //           setState(() {
+      //             _center = LatLng(position.latitude, position.longitude);
+      //           });
+      //         },
+      //         child: Icon(Icons.location_on), 
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
 }
