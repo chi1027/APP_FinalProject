@@ -3,18 +3,172 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:custom_info_window/custom_info_window.dart';
+enum StoreType{
+  cafe,
+  beverage,
+  bar,
+}
+String storeTypeToString(StoreType type){
+  if(type == StoreType.cafe){
+    return "咖啡廳";
+  }else if(type == StoreType.beverage){
+    return "飲料店";
+  }else if(type == StoreType.bar){
+    return "酒吧";
+  }else{
+    return "其他";
+  }
+}
 
 class MapMarker{
   late LatLng latLang;
   late String name;
-  late String genre;
+  late StoreType type;
 
   MapMarker({
     required this.latLang,
     required this.name,
-    required this.genre,
+    required this.type,
   });
 }
+
+class CustomInfoWindow extends StatefulWidget {
+  final String title;
+  final StoreType type;
+  final String review;
+
+  const CustomInfoWindow({
+    required this.title,
+    required this.type,
+    required this.review,
+  });
+
+  @override
+  _CustomInfoWindowState createState() => _CustomInfoWindowState();
+}
+
+class _CustomInfoWindowState extends State<CustomInfoWindow> {
+  bool isFavorite = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 24, right: 24, top: 8, bottom: 16),
+      child: InkWell(
+        splashColor: Colors.transparent,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.6), 
+                offset: const Offset(4, 4),
+                blurRadius: 16,
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+            child: Stack(
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    AspectRatio(
+                      aspectRatio: 2,
+                      child: Image.asset('images/bar.jpg', fit: BoxFit.cover),
+                    ),
+                    Expanded(
+                      child: Container(
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                widget.title,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                storeTypeToString(widget.type) as String,
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              SizedBox(height: 8),
+                              Row(
+                                children: <Widget>[
+                                  Text(
+                                    "好感度",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  SizedBox(width: 4),
+                                  Text(
+                                    "80%",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 8),
+                              Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 18,
+                                  ),
+                                  SizedBox(width: 4),
+                                  Text(
+                                    widget.review,
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(32.0),
+                      ),
+                      onTap: () {
+                        setState(() {
+                          isFavorite = !isFavorite;
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          isFavorite ? Icons.favorite : Icons.favorite_border,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
 
 class MapPage extends StatefulWidget {
   @override
@@ -33,39 +187,59 @@ class _MapScreenState extends State<MapPage> {
   // Test data
   List<MapMarker> mapMarkerTemp = [
     MapMarker(
-      latLang: LatLng(22.99268214404576, 120.22167562515983),
+      latLang: const LatLng(22.99268214404576, 120.22167562515983),
       name: "御私藏",
-      genre: "珍珠奶茶店",
+      type: StoreType.beverage,
     ),
     MapMarker(
-      latLang: LatLng(22.992964815833684, 120.22146017591658),
+      latLang: const LatLng(22.992964815833684, 120.22146017591658),
       name: "植作茶《臺南長榮店》",
-      genre: "珍珠奶茶店",
+      type: StoreType.beverage,
     ),
     MapMarker(
-      latLang: LatLng(22.993581845376646, 120.22603831398831,),
+      latLang: const LatLng(22.993581845376646, 120.22603831398831,),
       name: '在島之後After Island. 餐酒館',
-      genre: '餐酒館'
+      type: StoreType.bar,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.99352406850043, 120.22317354825209),
+      name: 'For you espresso 為你·煮咖啡',
+      type: StoreType.cafe,
     ),
   ];
 
   //Marker API
   void loadMarker(List<MapMarker> mapMarker){
     for(int i=0; i<mapMarker.length; i++){
+      late BitmapDescriptor icon;
+      if(mapMarker[i].type == StoreType.beverage){
+        icon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed);
+      }else if(mapMarker[i].type == StoreType.bar){ 
+        icon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange);
+      }else if (mapMarker[i].type == StoreType.cafe){  
+        icon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet);
+      }
       allMarkers.add(Marker(
         markerId: MarkerId(i.toString()),
         position: mapMarker[i].latLang, 
-        icon: BitmapDescriptor.defaultMarker,
+        icon: icon,
         infoWindow: InfoWindow(
           title: mapMarker[i].name,
-          snippet: mapMarker[i].genre,
         ),
-        onTap:(){
-          _center = mapMarker[i].latLang;
-          // _customInfoWindowController.addInfoWindow!(
-          //   const Text("hello"),
-          //   mapMarker[i].latLang,
-          // );
+        onTap: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (BuildContext context) {
+              return Container(
+                height: 400, // 设置容器高度
+                child: CustomInfoWindow(
+                  title: mapMarker[i].name,
+                  type: mapMarker[i].type,
+                  review: "4.5",
+                ),
+              );
+            },
+          );
         },
       ));
     }
@@ -168,12 +342,14 @@ class _MapScreenState extends State<MapPage> {
                   myLocationButtonEnabled: true,
                   mapType: MapType.normal,
                   myLocationEnabled: true,
+                  
                 ),
               ),
             ],
           ),
         ),
       ),
+      // this button is for testing
       // floatingActionButton: FloatingActionButton(
       //         onPressed: () {
       //           Position position = _getCurrentLocation() as Position;
