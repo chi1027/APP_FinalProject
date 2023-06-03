@@ -9,6 +9,7 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     key = data;
+
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SliverAppBarExample(),
@@ -28,8 +29,11 @@ class _SliverAppBarExampleState extends State<SliverAppBarExample> {
   bool _snap = false;
   bool _floating = false;
   String data = "";
+  /////////////////////////////////////////////////////////////////////////////////////
+  //key是關鍵字 func(key)return dir; //搜尋結果
   var dir = [{"store":"ooo", "dis":"五福二路","star":"4.9","money":"400"},{"store":"maco", "dis":"五福二路","star":"4.9","money":"400"},
     {"store":"yayaya", "dis":"五福二路","star":"4.9","money":"400"}];
+  /////////////////////////////////////////////////////////////////////////////////////
 
 // [SliverAppBar]s are typically used in [CustomScrollView.slivers], which in
 // turn can be placed in a [Scaffold.body].
@@ -199,127 +203,3 @@ class _SliverAppBarExampleState extends State<SliverAppBarExample> {
     );
   }
 }
-
-
-/*
-class SearchPage extends StatelessWidget {
-  // This widget is the root of your application.
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.only(left:20, right: 20, top: 10, bottom: 10),
-            child: Column(
-              children: [
-                Expanded(flex:2,
-                  child: Column(
-                    children: [
-                      Spacer(flex: 5,),
-                      Row(
-                          children: [
-                            Flexible(
-                              flex:17,
-                              child: Material(
-                                elevation: 5,
-                                borderRadius: BorderRadius.circular(6),
-                                child: TextFormField(
-                                  autofocus: false, //是否將屬標預設放在搜尋欄位
-                                  decoration: InputDecoration(
-                                      prefixIcon: Icon(
-                                        Icons.search,
-                                        color: Colors.lightBlueAccent,
-                                      ),
-                                      disabledBorder: InputBorder.none,
-                                      enabledBorder: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                      hintText: 'Search your favorite store',
-                                      hintStyle: TextStyle(color: Colors.grey)),
-                                ),
-                              ),
-                            ),
-                          ]
-                      ),
-                      Spacer(flex: 5,)
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex:12,
-                  child: Container(
-                    child: MaterialButton(
-                      padding: EdgeInsets.zero,
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(15),
-                              bottomLeft: Radius.circular(15))),
-                      elevation: 0,
-                      onPressed: () => {},
-                      child: Column(
-                        children: [
-                          Container(
-                              width: 500,
-                              height: 150,
-                              child: Column(
-                                children: [
-                                  AspectRatio(
-                                    aspectRatio: 5 / 2,
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(20),
-                                        child: Image.asset(
-                                          'images/drink.jpg',
-                                          fit: BoxFit.fitHeight,
-                                        )),
-                                  ),],
-                              )
-                          ),
-                          Spacer(flex: 1),
-                          Container(
-                              width: 500,
-                              height: 150,
-                              child: Column(
-                                children: [
-                                  AspectRatio(
-                                    aspectRatio: 5 / 2,
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(20),
-                                        child: Image.asset(
-                                          'images/bar.jpg',
-                                          fit: BoxFit.fitHeight,
-                                        )),
-                                  ),],
-                              )),
-                          Spacer(flex: 1),
-                          Container(
-                              width: 500,
-                              height: 150,
-                              child: Column(
-                                children: [
-                                  AspectRatio(
-                                    aspectRatio: 5 / 2,
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(20),
-                                        child: Image.asset(
-                                          'images/cafe.jpg',
-                                          fit: BoxFit.fitHeight,
-                                        )),
-                                  ),],
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-        )
-    );
-  }
-}
-
- */

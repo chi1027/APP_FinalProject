@@ -4,7 +4,6 @@ import "HomePage.dart";
 import "userPage.dart";
 import 'mapPage.dart';
 import 'createAccountPage.dart';
-import 'commentPage.dart';
 import 'package/Flutter_Rating_Bar.dart';
 //import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 //import 'package:google_fonts/google_fonts.dart';

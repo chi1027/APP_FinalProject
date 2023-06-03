@@ -41,6 +41,7 @@ dependencies:
   google_maps_flutter: ^2.2.8
   geolocator: ^9.0.2
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -83,7 +84,7 @@ flutter:
   fonts:
     - family: Courgette
       fonts:
-        - asset: build/app/intermediates/flutter/debug/flutter_assets/fonts/Courgette-Regular.ttf
+        - asset: fonts/Courgette-Regular.ttf
 
   #   - family: Schyler
   #     fonts:

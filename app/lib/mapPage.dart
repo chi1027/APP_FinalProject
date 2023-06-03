@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'commentPage.dart';
 // import 'package:custom_info_window/custom_info_window.dart';
 enum StoreType{
   cafe,
@@ -200,6 +201,28 @@ class _CustomInfoWindowState extends State<CustomInfoWindow> {
                     ),
                   ),
                 ),
+                Positioned(
+                  top: 40,
+                  right: 8,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(32.0),
+                      ),
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => CommentPage(store:widget.title)));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.reviews,
+                          color: Colors.blue[200],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -209,9 +232,6 @@ class _CustomInfoWindowState extends State<CustomInfoWindow> {
   }
 }
 
-
-
-
 class MapPage extends StatefulWidget {
   @override
   _MapScreenState createState() => _MapScreenState();
@@ -220,7 +240,6 @@ class MapPage extends StatefulWidget {
 class _MapScreenState extends State<MapPage> {
   Completer<GoogleMapController> _controller = Completer();
   TextEditingController _searchController = TextEditingController();
-
 
   static LatLng _center = const LatLng(22.997641853233787, 120.2206849481563);
   // CustomInfoWindowController _customInfoWindowController = CustomInfoWindowController();
@@ -271,9 +290,11 @@ class _MapScreenState extends State<MapPage> {
         onTap: () {
           showModalBottomSheet(
             context: context,
+            isScrollControlled: true,
+            useRootNavigator: true,
             builder: (BuildContext context) {
               return Container(
-                // height: 400, // 设置容器高度
+                height: 450, // 设置容器高度
                 child: CustomInfoWindow(
                   title: mapMarker[i].name,
                   type: mapMarker[i].type,

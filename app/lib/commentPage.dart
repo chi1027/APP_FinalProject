@@ -4,7 +4,9 @@ TextEditingController _context = TextEditingController();
 bool public = false;
 
 class CommentPage extends StatelessWidget {
-  var store = "maco";
+  var store;
+  CommentPage({this.store = "True"});
+
   var id = 1;
   List<Widget> _getGradeStar(double score, int total) {
     List<Widget> _list = List<Widget>.empty(growable: true);
@@ -255,12 +257,26 @@ class CommentPage extends StatelessWidget {
                         )
                       ),
                       Spacer(flex: 1,),
-                      ElevatedButton(
-                        child: Text('accept'),
-                        onPressed: () {
-                          print("${_context.text}");
-                        },
-                      ),
+                      Row(
+                        children: [
+                          ElevatedButton(
+                            child: Text('accept'),
+                            onPressed: () {
+                              /////////////////////////////////////////////////////////////////////////////
+                              //將評論儲存
+                              //
+                              /////////////////////////////////////////////////////////////////////////////
+                              Navigator.pop(context);
+                            },
+                          ),
+                          ElevatedButton(
+                            child: Text('cancel'),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 )
