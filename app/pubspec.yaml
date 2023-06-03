@@ -83,7 +83,7 @@ flutter:
   fonts:
     - family: Courgette
       fonts:
-        - asset: build/app/intermediates/flutter/debug/flutter_assets/fonts/Courgette-Regular.ttf
+        - asset: lib/assets/fonts/Courgette-Regular.ttf
 
   #   - family: Schyler
   #     fonts:
