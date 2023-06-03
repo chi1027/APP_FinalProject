@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
-import '/../searchPage.dart';
+import '/searchPage.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '/app/app.dart';
+import '/home/home.dart';
 
 class HomePage extends StatelessWidget {
   // This widget is the root of your application.
   const HomePage({super.key});
+
+  static Route<void> route() {
+    return MaterialPageRoute<void>(builder: (_) => const HomePage());
+  }
 
   static Page<void> page() => const MaterialPage<void>(child: HomePage());
 

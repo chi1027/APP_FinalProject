@@ -1,7 +1,7 @@
 import 'dart:ffi';
 import 'package:flutter/material.dart';
-import "HomePage.dart";
-import "userPage.dart";
+import "/home/home.dart";
+import "/user/user.dart";
 import 'mapPage.dart';
 import 'createAccountPage.dart';
 import 'commentPage.dart';

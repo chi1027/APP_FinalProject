@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
-import 'login/view/login_page.dart';
+import '/login/view/login_page.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '/app/app.dart';
+import '/home/home.dart';
+import '/sign_up/sign_up.dart';
 
 class UserPage extends StatelessWidget {
-  String data  ; //增加一個參數跟建構子提供我們傳遞資料
-  UserPage({this.data = "True"});
-  var name = "OOO";
-  var id = 1;
+  const UserPage({super.key});
+
+  static Page<void> page() => const MaterialPage<void>(child: UserPage());
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    /*if(data == "True"){
-      Future.delayed(Duration.zero, () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignPage())).then((value) {
-          data = value.toString();
-        });
-      });
-    }*/
+    final textTheme = Theme.of(context).textTheme;
+    final user = context.select((AppBloc bloc) => bloc.state.user);
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
@@ -62,7 +60,7 @@ class UserPage extends StatelessWidget {
                                         children: [
                                           Text(""),
                                           Text(
-                                              name,
+                                              user.name.toString(),
                                               style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 25,
@@ -71,7 +69,7 @@ class UserPage extends StatelessWidget {
                                               textAlign: TextAlign.center
                                           ),
                                           Text(
-                                              "ID : " + id.toString(),
+                                              "ID : " + user.email.toString(),
                                               style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 25,
@@ -258,7 +256,9 @@ class UserPage extends StatelessWidget {
                                         side:  const BorderSide(color: Colors.black38, width: 1)
                                     ),
                                     elevation: 0,
-                                    onPressed: () => {},
+                                    onPressed: () {context.read<AppBloc>().add(const AppLogoutRequested());
+                                    Navigator.of(context).push<void>(LoginPage.route());
+                                      },
                                     child: Row(
                                       children: [
                                         Spacer(flex: 5,),
