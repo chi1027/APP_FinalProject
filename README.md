@@ -12,8 +12,8 @@ Downloads的APP需要自行放入字體.ttf
 - 2023/06/03 更改
   1. MapMage 新增 infwindows
   2. MapMage 可以定位
-- 2023/06/04
-  1.景點資訊破圖(Map)
-  2.評論跳轉(Map)
-  3.評論結束跳轉(Comment)
-  4.fonts變換路徑
+- 2023/06/04 更改
+  1. 景點資訊破圖(Map)
+  2. 評論跳轉(Map)
+  3. 評論結束跳轉(Comment)
+  4. fonts變換路徑
