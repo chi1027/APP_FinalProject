@@ -36,11 +36,15 @@ class CustomInfoWindow extends StatefulWidget {
   final String title;
   final StoreType type;
   final String review;
+  final String address;
+  final String price;
 
   const CustomInfoWindow({
     required this.title,
     required this.type,
     required this.review,
+    required this.address,
+    required this.price,
   });
 
   @override
@@ -94,21 +98,44 @@ class _CustomInfoWindowState extends State<CustomInfoWindow> {
                                 ),
                               ),
                               SizedBox(height: 8),
-                              Text(
-                                storeTypeToString(widget.type) as String,
-                                style: TextStyle(fontSize: 16),
+                              Row(
+                                children: <Widget>[
+                                  Text(
+                                    "類型： ",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  SizedBox(width: 4),
+                                  Text(
+                                    storeTypeToString(widget.type) as String,
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
                               ),
                               SizedBox(height: 8),
                               Row(
                                 children: <Widget>[
                                   Text(
-                                    "好感度",
+                                    "地址： ",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  SizedBox(width: 4),
+                                  Text(
+                                    widget.address,
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 8),
+                              Row(
+                                children: <Widget>[
+                                  Text(
+                                    "好感度: ",
                                     style: TextStyle(fontSize: 16),
                                   ),
                                   SizedBox(width: 4),
                                   Text(
                                     "80%",
-                                    style: TextStyle(fontSize: 16),
+                                    style: TextStyle(fontSize: 16,),
                                   ),
                                 ],
                               ),
@@ -123,6 +150,21 @@ class _CustomInfoWindowState extends State<CustomInfoWindow> {
                                   SizedBox(width: 4),
                                   Text(
                                     widget.review,
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 8),
+                              Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.attach_money,
+                                    color: Colors.amber,
+                                    size: 18,
+                                  ),
+                                  SizedBox(width: 4),
+                                  Text(
+                                    widget.price,
                                     style: TextStyle(fontSize: 14),
                                   ),
                                 ],
@@ -231,11 +273,13 @@ class _MapScreenState extends State<MapPage> {
             context: context,
             builder: (BuildContext context) {
               return Container(
-                height: 400, // 设置容器高度
+                // height: 400, // 设置容器高度
                 child: CustomInfoWindow(
                   title: mapMarker[i].name,
                   type: mapMarker[i].type,
                   review: "4.5",
+                  address: "台南市中西區民族路二段 206 號",
+                  price: "100",
                 ),
               );
             },
