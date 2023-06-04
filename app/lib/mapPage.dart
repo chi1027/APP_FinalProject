@@ -54,7 +54,7 @@ class CustomInfoWindow extends StatefulWidget {
 
 class _CustomInfoWindowState extends State<CustomInfoWindow> {
   bool isFavorite = false;
-
+  bool isCheck = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -170,6 +170,48 @@ class _CustomInfoWindowState extends State<CustomInfoWindow> {
                                   ),
                                 ],
                               ),
+                              SizedBox(height: 8),
+                              Row(
+                                children: <Widget>[
+                                  Text(
+                                    "類似的店家: ",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 8),
+                              Row(
+                                children: <Widget>[
+                                  SizedBox(width: 4),
+                                  Text(
+                                    "植作茶",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 8),
+                              Row(
+                                children: <Widget>[
+                                  SizedBox(width: 4),
+                                  GestureDetector(
+                                    child: Text(
+                                      "植作茶",
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 8),
+                              Row(
+                                children: <Widget>[
+                                  SizedBox(width: 4),
+                                  Text(
+                                    "植作茶",
+                                    style: TextStyle(fontSize: 16),
+
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         ),
@@ -218,6 +260,30 @@ class _CustomInfoWindowState extends State<CustomInfoWindow> {
                         child: Icon(
                           Icons.reviews,
                           color: Colors.blue[200],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 72,
+                  right: 8,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(32.0),
+                      ),
+                      onTap: () {
+                        setState(() {
+                          isCheck = !isCheck;
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.check ,
+                          color: isCheck ?Colors.green: Colors.grey[200],
                         ),
                       ),
                     ),
@@ -294,7 +360,7 @@ class _MapScreenState extends State<MapPage> {
             useRootNavigator: true,
             builder: (BuildContext context) {
               return Container(
-                height: 450, // 设置容器高度
+                height: 600, // 设置容器高度
                 child: CustomInfoWindow(
                   title: mapMarker[i].name,
                   type: mapMarker[i].type,
