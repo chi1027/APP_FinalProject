@@ -61,8 +61,8 @@ class HomePage extends StatelessWidget {
                                     topLeft: Radius.circular(15),
                                     bottomLeft: Radius.circular(15))),
                             elevation: 0,
-                            onPressed: () => {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage(data:"drink")))
+                            onPressed: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage(data:"drink")));
                             },
                             child:Column(
                               children: [

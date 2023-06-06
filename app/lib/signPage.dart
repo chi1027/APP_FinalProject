@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:innovative_mobile_networks_apps/createAccountPage.dart';
-import 'createAccountPage.dart';
+import 'account.dart';
+import 'main.dart';
 
 TextEditingController _account = TextEditingController();
 TextEditingController _password = TextEditingController();
@@ -91,10 +92,12 @@ class SignPage extends StatelessWidget {
                                   // else{showDialog; }
                                   // return True or Flase;
                                   // }
-                                  /////////////////////////////////////////////////////////////////////////////////
                                   if(_account.text == "000" && _password.text == "000"){
-                                    Navigator.pop(context, "False");
+                                    user.name = "000";
+                                    user.ID = 1;
+                                    Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNavigation(2)));
                                   }
+                                  /////////////////////////////////////////////////////////////////////////////////
                                   else{
                                     showDialog<String>(
                                       context: context,

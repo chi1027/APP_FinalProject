@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import "HomePage.dart";
 import "userPage.dart";
 import 'mapPage.dart';
-import 'account.dart';
+import 'sightPage.dart';
 
 
 void main() => runApp(MyApp());
@@ -17,21 +17,23 @@ class MyApp extends StatelessWidget {
         colorSchemeSeed: const Color(0xff6750a4),
         useMaterial3: true,
       ),
-      home: BottomNavigation(),
+      home: BottomNavigation(1),
     );
   }
 }
 
 class BottomNavigation extends StatefulWidget {
-  const BottomNavigation({super.key});
+  var _selectedIndex;
+  BottomNavigation(this._selectedIndex);
   @override
   State<BottomNavigation> createState() =>
-      _BottomNavigationBarState();
+      _BottomNavigationBarState(_selectedIndex);
 }
 
 class _BottomNavigationBarState
     extends State<BottomNavigation> {
-  int _selectedIndex = 1;
+  var _selectedIndex;
+  _BottomNavigationBarState(this._selectedIndex);
   List<Widget> page = <Widget>[MapPage(),HomePage(),UserPage()];
   void _onItemTapped(int index) {
     setState(() {
