@@ -6,13 +6,6 @@ TextEditingController _account = TextEditingController();
 TextEditingController _password = TextEditingController();
 
 class SignPage extends StatelessWidget {
-  var name = "000";
-  var id = 1;
-  int page = 5;
-  // This widget is the root of your application.
-  void _onItemClick(int index) {
-    page=index;
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,13 +84,31 @@ class SignPage extends StatelessWidget {
                                   color: Colors.black87, borderRadius: BorderRadius.circular(20)),
                               child: TextButton(
                                 onPressed: () {
+                                  /////////////////////////////////////////////////////////////////////////////////
+                                  //登入資訊判定
+                                  // String func(_account.text, _password.text) {
+                                  // if True{user.name = usename; }
+                                  // else{showDialog; }
+                                  // return True or Flase;
+                                  // }
+                                  /////////////////////////////////////////////////////////////////////////////////
                                   if(_account.text == "000" && _password.text == "000"){
                                     Navigator.pop(context, "False");
                                   }
                                   else{
-                                    print("ok");
-                                    print(_account.text);
-                                    print(_password.text);
+                                    showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) => AlertDialog(
+                                        title: const Text('AlertDialog'),
+                                        content: const Text('Email and password don’t match.'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(context, 'OK'),
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
+                                      ),
+                                    );
                                   }
                                 },
                                 child: Text(

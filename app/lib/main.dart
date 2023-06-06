@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import "HomePage.dart";
 import "userPage.dart";
 import 'mapPage.dart';
-import 'createAccountPage.dart';
-import 'package/Flutter_Rating_Bar.dart';
-//import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-//import 'package:google_fonts/google_fonts.dart';
-//import 'package:lesson_1/theme.dart';
+import 'account.dart';
+
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -26,7 +24,6 @@ class MyApp extends StatelessWidget {
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({super.key});
-
   @override
   State<BottomNavigation> createState() =>
       _BottomNavigationBarState();
@@ -68,3 +65,5 @@ class _BottomNavigationBarState
     );
   }
 }
+
+

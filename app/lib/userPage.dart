@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import "signPage.dart";
+import "account.dart";
 
 class UserPage extends StatelessWidget {
-  String data  ; //增加一個參數跟建構子提供我們傳遞資料
-  UserPage({this.data = "True"});
-  var name = "OOO";
-  var id = 1;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    if(data == "True"){
+    if(user.name == "default"){
       Future.delayed(Duration.zero, () {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => SignPage())).then((value) {
-          data = value.toString();
+          user.name = value.toString();
         });
       });
     }
@@ -62,7 +59,7 @@ class UserPage extends StatelessWidget {
                                         children: [
                                           Text(""),
                                           Text(
-                                              name,
+                                              user.name,
                                               style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 25,
@@ -71,7 +68,7 @@ class UserPage extends StatelessWidget {
                                               textAlign: TextAlign.center
                                           ),
                                           Text(
-                                              "ID : " + id.toString(),
+                                              "ID : " + user.ID.toString(),
                                               style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 25,
@@ -86,7 +83,6 @@ class UserPage extends StatelessWidget {
                               )
                             ]
                         ),
-
                       ]
                   ),
                 ),
