@@ -1,20 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:innovative_mobile_networks_apps/pages/auth/login_page.dart';
 import "signPage.dart";
 import "account.dart";
 import 'achievementPage.dart';
 import 'main.dart';
 import 'userCommentPage.dart';
 import 'userFavoritePage.dart';
+import 'package:provider/provider.dart';
+import '/service/auth_service.dart';
+import '/helper/helper_function.dart';
+import '/widgets/widgets.dart';
 
-class UserPage extends StatelessWidget {
+class UserPage extends StatefulWidget {
+  UserPage({Key? key})
+      : super(key: key);
+  @override
+  State<UserPage> createState() => _UserPageState();
+}
+
+class _UserPageState extends State<UserPage>{
+  String userName = "";
+  String email = "";
+  AuthService authService = AuthService();
+
+  @override
+  void initState() {
+    super.initState();
+    gettingUserData();
+  }
+  gettingUserData() async {
+    await HelperFunctions.getUserEmailFromSF().then((value) {
+      setState(() {
+        email = value!;
+      });
+    });
+    await HelperFunctions.getUserNameFromSF().then((val) {
+      setState(() {
+        userName = val!;
+      });
+    });
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    if(user.name == "default"){
-      Future.delayed(Duration.zero, () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignPage()));
-      });
       return Scaffold(
           resizeToAvoidBottomInset: false,
           body: SafeArea(
@@ -60,7 +89,7 @@ class UserPage extends StatelessWidget {
                                           children: [
                                             Text(""),
                                             Text(
-                                                user.name,
+                                                userName,
                                                 style: TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 25,
@@ -69,7 +98,7 @@ class UserPage extends StatelessWidget {
                                                 textAlign: TextAlign.center
                                             ),
                                             Text(
-                                                "ID : " + user.ID.toString(),
+                                                "email : " + email,
                                                 style: TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 25,
@@ -257,7 +286,9 @@ class UserPage extends StatelessWidget {
                                           side:  const BorderSide(color: Colors.black38, width: 1)
                                       ),
                                       elevation: 0,
-                                      onPressed: () => {},
+                                      onPressed: () {
+                                        signOut(context);
+                                      },
                                       child: Row(
                                         children: [
                                           Spacer(flex: 5,),
@@ -299,7 +330,6 @@ class UserPage extends StatelessWidget {
             ),
           )
       );
-    }
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
@@ -593,4 +623,10 @@ class UserPage extends StatelessWidget {
         )
     );
   }
-}
+  signOut(context) async {
+      await authService.signOut().then((value) async {
+        if (value == true) {
+          nextScreenReplace(context, const LoginPage());
+      }});
+    }
+  }
