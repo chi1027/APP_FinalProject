@@ -340,11 +340,11 @@ class _MapScreenState extends State<MapPage> {
     for(int i=0; i<mapMarker.length; i++){
       late BitmapDescriptor icon;
       if(mapMarker[i].type == StoreType.beverage){
-        icon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed);
+        icon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue);
       }else if(mapMarker[i].type == StoreType.bar){ 
-        icon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange);
+        icon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed);
       }else if (mapMarker[i].type == StoreType.cafe){  
-        icon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet);
+        icon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange);
       }
       allMarkers.add(Marker(
         markerId: MarkerId(i.toString()),
