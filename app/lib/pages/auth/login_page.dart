@@ -125,6 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 primary: Theme.of(context).primaryColor,
+                                backgroundColor: Colors.white,
                                 elevation: 0,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30))),
@@ -198,8 +199,8 @@ class _LoginPageState extends State<LoginPage> {
     await authService.loginwithGoogle().then((value) async {
         // saving the values to our shared preferences
         await HelperFunctions.saveUserLoggedInStatus(true);
-        await HelperFunctions.saveUserEmailSF(email);
-        await HelperFunctions.saveUserNameSF(value);
+        await HelperFunctions.saveUserEmailSF(value.email);
+        await HelperFunctions.saveUserNameSF(value.displayName);
         nextScreenReplace(context, BottomNavigation(1));
       }
     );

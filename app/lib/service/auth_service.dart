@@ -18,7 +18,7 @@ class AuthService {
       displayName: this.googleSignInAccount!.displayName,
       email: this.googleSignInAccount!.email,
     );
-    return this.googleSignInAccount!.displayName;
+    return this.userDetails;
   }
 
   // login

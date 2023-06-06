@@ -92,7 +92,7 @@ class _UserPageState extends State<UserPage>{
                                                 userName,
                                                 style: TextStyle(
                                                   color: Colors.black,
-                                                  fontSize: 25,
+                                                  fontSize: 18,
                                                   fontFamily: 'Courgette',
                                                 ),
                                                 textAlign: TextAlign.center
@@ -101,7 +101,7 @@ class _UserPageState extends State<UserPage>{
                                                 "email : " + email,
                                                 style: TextStyle(
                                                   color: Colors.black,
-                                                  fontSize: 25,
+                                                  fontSize: 18,
                                                   fontFamily: 'Courgette',
                                                 ),
                                                 textAlign: TextAlign.center
