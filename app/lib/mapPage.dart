@@ -310,6 +310,8 @@ class _MapScreenState extends State<MapPage> {
   static LatLng _center = const LatLng(22.997641853233787, 120.2206849481563);
   // CustomInfoWindowController _customInfoWindowController = CustomInfoWindowController();
 
+
+
   List<Marker> allMarkers = [];
   // Test data
   List<MapMarker> mapMarkerTemp = [
@@ -332,6 +334,171 @@ class _MapScreenState extends State<MapPage> {
       latLang: const LatLng(22.99352406850043, 120.22317354825209),
       name: 'For you espresso 為你·煮咖啡',
       type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.999206202127453, 120.21128014723303),
+      name: '甜在心咖啡館', 
+      type: StoreType.cafe
+    ),
+    MapMarker(
+      latLang: const LatLng(22.987037168843635, 120.20208687975727),
+      name: '曉咖啡', 
+      type: StoreType.cafe
+    ),
+    MapMarker(
+    latLang: const LatLng(22.999206202127453, 120.21128014723303),
+    name: '甜在心咖啡館',
+    type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.987037168843635, 120.20208687975727),
+      name: '曉咖啡',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.99463104889726, 120.17479586440083),
+      name: 'Dr.Bean',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.994225575196772, 120.22646230501331),
+      name: '咖啡平方 東安店',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.996002629277758, 120.20123810859221),
+      name: '1/2P Café－陶甕烘焙咖啡',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.99263854050264, 120.2223870405218),
+      name: '那豆鮮焙',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.99094991087657, 120.19526739324243),
+      name: '小雨咖啡 Café Drizzle',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.99853387890426, 120.2334410220874),
+      name: '生命樹咖啡',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(23.003708960817136, 120.21863648782775),
+      name: '東楓咖啡茶飲',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.99355730241617, 120.20933923325222),
+      name: 'ALFEE Coffee 台南艾咖啡',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.99318329690226, 120.20770507742695),
+      name: '小巷裡的拾壹號-自家烘焙咖啡店',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.989987558529265, 120.19971283325444),
+      name: 'TreesWind 樹有風',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.992971085211742, 120.19639402208739),
+      name: '京美人甘味屋',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+    latLang: const LatLng(23.02181142482373, 120.2340799194156),
+    name: 'For Coffee為了咖啡',
+    type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(23.005045742423974, 120.19961654674623),
+      name: '有邑家 Home from Home Cafe',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(23.008288850511356, 120.2252233049756),
+      name: '猫毛珈琲（原猫門）',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(23.008536941305927, 120.21541270242723),
+      name: "就愛咖啡 J'aime Café",
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.988513815626852, 120.22052474121246),
+      name: '豆ㄦ',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.987254516214776, 120.21993999762249),
+      name: 'Birdeye Espresso / 被愛咖啡',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.9851852846636, 120.21902535713578),
+      name: 'a Room房間咖啡',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.98076029905211, 120.20956256441747),
+      name: '跳兔咖啡吧',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.979545416163575, 120.20814633315754),
+      name: '圓頭咖啡',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.97332245250244, 120.22065620325208),
+      name: '巷隅咖啡',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.991705527281216, 120.21322844248212),
+      name: '席瑪朵咖啡烘焙棧(青年店)',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.978011418120225, 120.22349646400343),
+      name: '私人藏豆',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.989971336572307, 120.21625850359241),
+      name: '黑早咖啡',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+    latLang: const LatLng(22.98465757274919, 120.22709454860886),
+    name: '甘谷咖啡',
+    type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.99463640697494, 120.20004173800977),
+      name: '镹 coffee • dessert',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.99290617101682, 120.21083814364063),
+      name: '跳舞的羊咖啡豆專賣店',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(23.00315503216069, 120.22287574480582),
+      name: '魚羊鮮豆 東豐店',
+      type: StoreType.cafe,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.992732323265937, 120.22166434436578),
+      name: '50嵐 成大店',
+      type: StoreType.beverage,
     ),
   ];
 
