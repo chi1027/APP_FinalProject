@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package/Flutter_Rating_Bar.dart';
+TextEditingController _item = TextEditingController();
+TextEditingController _money = TextEditingController();
 TextEditingController _context = TextEditingController();
 bool public = false;
 
 class CommentPage extends StatelessWidget {
   var store;
-  CommentPage({this.store = "True"});
+  var data;
+  CommentPage({this.store = "True", this.data = "true"});
 
   var id = 1;
   List<Widget> _getGradeStar(double score, int total) {
@@ -117,7 +120,7 @@ class CommentPage extends StatelessWidget {
                               flex:6,
                               child: TextField(
                                 autofocus: false,
-                                controller: _context,
+                                controller: _item,
                                 keyboardType: TextInputType.text,
                                 maxLines: 1,
                                 decoration: InputDecoration(
@@ -127,7 +130,7 @@ class CommentPage extends StatelessWidget {
                                     hintText: 'Items you buy.',
                                     hintStyle: TextStyle(color: Colors.grey)),
                                 style: TextStyle(
-                                  color: Colors.black12,
+                                  color: Colors.black,
                                   fontSize: 20,
                                   fontFamily: 'Courgette',
                                 ),
@@ -158,7 +161,7 @@ class CommentPage extends StatelessWidget {
                                 flex: 6,
                                 child: TextField(
                                   autofocus: false,
-                                  controller: _context,
+                                  controller: _money,
                                   keyboardType: TextInputType.text,
                                   maxLines: 1,
                                   decoration: InputDecoration(
@@ -168,7 +171,7 @@ class CommentPage extends StatelessWidget {
                                       hintText: 'Money you pay.',
                                       hintStyle: TextStyle(color: Colors.grey)),
                                   style: TextStyle(
-                                    color: Colors.black12,
+                                    color: Colors.black,
                                     fontSize: 20,
                                     fontFamily: 'Courgette',
                                   ),
@@ -245,7 +248,7 @@ class CommentPage extends StatelessWidget {
                                   ),
                                   maxLines: 5,
                                   style: TextStyle(
-                                    color: Colors.black12,
+                                    color: Colors.black,
                                     fontSize: 20,
                                     fontFamily: 'Courgette',
                                   ),
