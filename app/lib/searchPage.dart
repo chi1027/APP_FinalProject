@@ -26,20 +26,38 @@ class SliverAppBarExample extends StatefulWidget {
 }
 
 class _SliverAppBarExampleState extends State<SliverAppBarExample> {
-  bool _pinned = true;
-  bool _snap = false;
-  bool _floating = false;
   String data = "";
-  /////////////////////////////////////////////////////////////////////////////////////
-  //key是關鍵字 func(key)return dir; //搜尋結果
-  var dir = [{"store":"ooo", "dis":"五福二路","star":"4.9","money":"400"},{"store":"maco", "dis":"五福二路","star":"4.9","money":"400"},
-    {"store":"yayaya", "dis":"五福二路","star":"4.9","money":"400"}];
-  /////////////////////////////////////////////////////////////////////////////////////
+  var dir;
+
 
 // [SliverAppBar]s are typically used in [CustomScrollView.slivers], which in
 // turn can be placed in a [Scaffold.body].
   @override
   Widget build(BuildContext context) {
+    if(key=="cafe"){
+      /////////////////////////////////////////////////////////////////////////////////////
+      //key是關鍵字 func(key)return dir; //搜尋結果
+      dir = [{"store":"甘谷咖啡", "dis":"台南市東區裕豐街54巷1號","star":"4.5","money":"100"},{"store":"黑早咖啡", "dis":"台南市東區慶東街115號","star":"4.5","money":"100"},
+        {"store":"Dr.Bean", "dis":"台南市安平區怡平路410巷33號","star":"4.5","money":"100"},{"store":"咖啡平方 東安店", "dis":"台南市東區東安路93號","star":"4.5","money":"100"},
+        {"store":"生命樹咖啡", "dis":"台南市東區小東路350號","star":"4.5","money":"100"}];
+      /////////////////////////////////////////////////////////////////////////////////////
+    }
+    else if(key=="drink"){
+      /////////////////////////////////////////////////////////////////////////////////////
+      //key是關鍵字 func(key)return dir; //搜尋結果
+      dir = [{"store":"五桐號WooTEA台南成大店", "dis":"台南市東區勝利路143號","star":"4.5","money":"100"},{"store":"植作茶《臺南長榮店》", "dis":"台南市東區長榮路三段3號","star":"4.5","money":"100"},
+        {"store":"御私藏", "dis":"台南市東區長榮路三段18號","star":"4.5","money":"100"},{"store":"迷客夏Milksha 臺南東安店", "dis":"台南市東區東安路121號","star":"4.5","money":"100"},
+        {"store":"50嵐 成大店", "dis":"台南市東區長榮路三段22號","star":"4.5","money":"100"}];
+      /////////////////////////////////////////////////////////////////////////////////////
+    }
+    else if(key=="bar"){
+      /////////////////////////////////////////////////////////////////////////////////////
+      //key是關鍵字 func(key)return dir; //搜尋結果
+      dir = [{"store":"牛棚手作燒物-酒攤", "dis":"台南市東區東安路48巷53號","star":"4.5","money":"100"},{"store":"Cheers Bar 無囯籍", "dis":"台南市東區怡東路50號2樓","star":"4.5","money":"100"},
+        {"store":"Bar Whisper", "dis":"台南市東區東寧路162號","star":"4.5","money":"100"},{"store":"Midnight Tainan", "dis":"台南市東區小東路296號","star":"4.5","money":"100"},
+        {"store":"在島之後After Island. 餐酒館", "dis":"台南市東區東寧路201巷121號","star":"4.5","money":"100"}];
+      /////////////////////////////////////////////////////////////////////////////////////
+    }
 
     return Scaffold(
       body:SafeArea(
@@ -140,7 +158,7 @@ class _SliverAppBarExampleState extends State<SliverAppBarExample> {
                                                   store.toString(),
                                                   style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 30,
+                                                    fontSize: 25,
                                                     fontFamily: 'Courgette',)
                                               ),
                                             ],
@@ -202,7 +220,7 @@ class _SliverAppBarExampleState extends State<SliverAppBarExample> {
                             )
                           );
                         },
-                        childCount: 3,
+                        childCount: 5,
                       ),
                     ),
                   ],
