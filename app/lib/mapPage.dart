@@ -327,9 +327,9 @@ class _MapScreenState extends State<MapPage> {
 
   // recommender
   late String _server;
-  late String re1;
-  late String re2;
-  late String re3;
+  late String re1 = "無";
+  late String re2 = "無";
+  late String re3 = "無";
   final TextEditingController _userIDController = TextEditingController();
   late Future<List<String>> storeList;
 
@@ -579,6 +579,7 @@ class _MapScreenState extends State<MapPage> {
             re2 = value[1];
             re3 = value[2];
           });
+          
 
           showModalBottomSheet(
             context: context,
