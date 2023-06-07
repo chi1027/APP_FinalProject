@@ -1,27 +1,33 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'commentPage.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:http/http.dart' as http;
+
 // import 'package:custom_info_window/custom_info_window.dart';
-enum StoreType{
+enum StoreType {
   cafe,
   beverage,
   bar,
 }
-String storeTypeToString(StoreType type){
-  if(type == StoreType.cafe){
+
+String storeTypeToString(StoreType type) {
+  if (type == StoreType.cafe) {
     return "咖啡廳";
-  }else if(type == StoreType.beverage){
+  } else if (type == StoreType.beverage) {
     return "飲料店";
-  }else if(type == StoreType.bar){
+  } else if (type == StoreType.bar) {
     return "酒吧";
-  }else{
+  } else {
     return "其他";
   }
 }
 
-class MapMarker{
+class MapMarker {
   late LatLng latLang;
   late String name;
   late StoreType type;
@@ -39,6 +45,9 @@ class CustomInfoWindow extends StatefulWidget {
   final String review;
   final String address;
   final String price;
+  final String re1;
+  final String re2;
+  final String re3;
 
   const CustomInfoWindow({
     required this.title,
@@ -46,6 +55,9 @@ class CustomInfoWindow extends StatefulWidget {
     required this.review,
     required this.address,
     required this.price,
+    required this.re1,
+    required this.re2,
+    required this.re3,
   });
 
   @override
@@ -55,6 +67,7 @@ class CustomInfoWindow extends StatefulWidget {
 class _CustomInfoWindowState extends State<CustomInfoWindow> {
   bool isFavorite = false;
   bool isCheck = false;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -66,7 +79,7 @@ class _CustomInfoWindowState extends State<CustomInfoWindow> {
             borderRadius: const BorderRadius.all(Radius.circular(16.0)),
             boxShadow: <BoxShadow>[
               BoxShadow(
-                color: Colors.grey.withOpacity(0.6), 
+                color: Colors.grey.withOpacity(0.6),
                 offset: const Offset(4, 4),
                 blurRadius: 16,
               ),
@@ -136,7 +149,9 @@ class _CustomInfoWindowState extends State<CustomInfoWindow> {
                                   SizedBox(width: 4),
                                   Text(
                                     "80%",
-                                    style: TextStyle(fontSize: 16,),
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -184,7 +199,7 @@ class _CustomInfoWindowState extends State<CustomInfoWindow> {
                                 children: <Widget>[
                                   SizedBox(width: 4),
                                   Text(
-                                    "植作茶",
+                                    widget.re1.toString(),
                                     style: TextStyle(fontSize: 16),
                                   ),
                                 ],
@@ -195,7 +210,7 @@ class _CustomInfoWindowState extends State<CustomInfoWindow> {
                                   SizedBox(width: 4),
                                   GestureDetector(
                                     child: Text(
-                                      "植作茶",
+                                      widget.re2.toString(),
                                       style: TextStyle(fontSize: 16),
                                     ),
                                   ),
@@ -206,9 +221,8 @@ class _CustomInfoWindowState extends State<CustomInfoWindow> {
                                 children: <Widget>[
                                   SizedBox(width: 4),
                                   Text(
-                                    "植作茶",
+                                    widget.re3.toString(),
                                     style: TextStyle(fontSize: 16),
-
                                   ),
                                 ],
                               ),
@@ -253,7 +267,11 @@ class _CustomInfoWindowState extends State<CustomInfoWindow> {
                         Radius.circular(32.0),
                       ),
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => CommentPage(store:widget.title)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    CommentPage(store: widget.title)));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -282,8 +300,8 @@ class _CustomInfoWindowState extends State<CustomInfoWindow> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Icon(
-                          Icons.check ,
-                          color: isCheck ?Colors.green: Colors.grey[200],
+                          Icons.check,
+                          color: isCheck ? Colors.green : Colors.grey[200],
                         ),
                       ),
                     ),
@@ -307,10 +325,16 @@ class _MapScreenState extends State<MapPage> {
   Completer<GoogleMapController> _controller = Completer();
   TextEditingController _searchController = TextEditingController();
 
+  // recommender
+  late String _server;
+  late String re1;
+  late String re2;
+  late String re3;
+  final TextEditingController _userIDController = TextEditingController();
+  late Future<List<String>> storeList;
+
   static LatLng _center = const LatLng(22.997641853233787, 120.2206849481563);
   // CustomInfoWindowController _customInfoWindowController = CustomInfoWindowController();
-
-
 
   List<Marker> allMarkers = [];
   // Test data
@@ -326,7 +350,10 @@ class _MapScreenState extends State<MapPage> {
       type: StoreType.beverage,
     ),
     MapMarker(
-      latLang: const LatLng(22.993581845376646, 120.22603831398831,),
+      latLang: const LatLng(
+        22.993581845376646,
+        120.22603831398831,
+      ),
       name: '在島之後After Island. 餐酒館',
       type: StoreType.bar,
     ),
@@ -336,19 +363,17 @@ class _MapScreenState extends State<MapPage> {
       type: StoreType.cafe,
     ),
     MapMarker(
+        latLang: const LatLng(22.999206202127453, 120.21128014723303),
+        name: '甜在心咖啡館',
+        type: StoreType.cafe),
+    MapMarker(
+        latLang: const LatLng(22.987037168843635, 120.20208687975727),
+        name: '曉咖啡',
+        type: StoreType.cafe),
+    MapMarker(
       latLang: const LatLng(22.999206202127453, 120.21128014723303),
-      name: '甜在心咖啡館', 
-      type: StoreType.cafe
-    ),
-    MapMarker(
-      latLang: const LatLng(22.987037168843635, 120.20208687975727),
-      name: '曉咖啡', 
-      type: StoreType.cafe
-    ),
-    MapMarker(
-    latLang: const LatLng(22.999206202127453, 120.21128014723303),
-    name: '甜在心咖啡館',
-    type: StoreType.cafe,
+      name: '甜在心咖啡館',
+      type: StoreType.cafe,
     ),
     MapMarker(
       latLang: const LatLng(22.987037168843635, 120.20208687975727),
@@ -411,9 +436,9 @@ class _MapScreenState extends State<MapPage> {
       type: StoreType.cafe,
     ),
     MapMarker(
-    latLang: const LatLng(23.02181142482373, 120.2340799194156),
-    name: 'For Coffee為了咖啡',
-    type: StoreType.cafe,
+      latLang: const LatLng(23.02181142482373, 120.2340799194156),
+      name: 'For Coffee為了咖啡',
+      type: StoreType.cafe,
     ),
     MapMarker(
       latLang: const LatLng(23.005045742423974, 120.19961654674623),
@@ -476,9 +501,9 @@ class _MapScreenState extends State<MapPage> {
       type: StoreType.cafe,
     ),
     MapMarker(
-    latLang: const LatLng(22.98465757274919, 120.22709454860886),
-    name: '甘谷咖啡',
-    type: StoreType.cafe,
+      latLang: const LatLng(22.98465757274919, 120.22709454860886),
+      name: '甘谷咖啡',
+      type: StoreType.cafe,
     ),
     MapMarker(
       latLang: const LatLng(22.99463640697494, 120.20004173800977),
@@ -502,25 +527,59 @@ class _MapScreenState extends State<MapPage> {
     ),
   ];
 
+  Future<List<String>> recommend() async {
+    if (!kIsWeb && Platform.isAndroid) {
+      // For Android emulator
+      _server = '10.0.2.2';
+    } else {
+      // For iOS emulator, desktop and web platforms
+      _server = '127.0.0.1';
+    }
+    final response = await http.post(
+      Uri.parse('http://$_server:5000/recommend'),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(<String, String>{
+        'user_id': _userIDController.text,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      return List<String>.from(
+          jsonDecode(response.body)['stores'] as Iterable<dynamic>);
+    } else {
+      throw Exception('Error response');
+    }
+  }
+
   //Marker API
-  void loadMarker(List<MapMarker> mapMarker){
-    for(int i=0; i<mapMarker.length; i++){
+  void loadMarker(List<MapMarker> mapMarker) {
+    for (int i = 0; i < mapMarker.length; i++) {
       late BitmapDescriptor icon;
-      if(mapMarker[i].type == StoreType.beverage){
+      if (mapMarker[i].type == StoreType.beverage) {
         icon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue);
-      }else if(mapMarker[i].type == StoreType.bar){ 
+      } else if (mapMarker[i].type == StoreType.bar) {
         icon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed);
-      }else if (mapMarker[i].type == StoreType.cafe){  
-        icon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange);
+      } else if (mapMarker[i].type == StoreType.cafe) {
+        icon =
+            BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange);
       }
       allMarkers.add(Marker(
         markerId: MarkerId(i.toString()),
-        position: mapMarker[i].latLang, 
+        position: mapMarker[i].latLang,
         icon: icon,
         infoWindow: InfoWindow(
           title: mapMarker[i].name,
         ),
         onTap: () {
+          storeList = recommend();
+          storeList.then((value) {
+            re1 = value[0];
+            re2 = value[1];
+            re3 = value[2];
+          });
+
           showModalBottomSheet(
             context: context,
             isScrollControlled: true,
@@ -534,6 +593,9 @@ class _MapScreenState extends State<MapPage> {
                   review: "4.5",
                   address: "台南市中西區民族路二段 206 號",
                   price: "100",
+                  re1: re1,
+                  re2: re2,
+                  re3: re3,
                 ),
               );
             },
@@ -545,47 +607,45 @@ class _MapScreenState extends State<MapPage> {
       _center = mapMarker[0].latLang; // 將畫面中心移到第一個點
     });
   }
-  
-  void clearMarkers(){
+
+  void clearMarkers() {
     setState(() {
       allMarkers.clear();
     });
   }
 
   void _onMapCreated(GoogleMapController controller) {
-    _controller.complete(controller); 
+    _controller.complete(controller);
   }
 
-
-
   // Current location API
-  Future<Position> _getCurrentLocation() async{
+  Future<Position> _getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if(!serviceEnabled){
+    if (!serviceEnabled) {
       return Future.error('Location services are disabled.');
     }
     LocationPermission permission = await Geolocator.checkPermission();
-    if(permission == LocationPermission.denied){
+    if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
-      if(permission == LocationPermission.denied){
+      if (permission == LocationPermission.denied) {
         return Future.error('Location permissions are denied');
       }
     }
-    if(permission == LocationPermission.deniedForever){
+    if (permission == LocationPermission.deniedForever) {
       return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.');
+          'Location permissions are permanently denied, we cannot request permissions.');
     }
     return await Geolocator.getCurrentPosition();
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     loadMarker(mapMarkerTemp);
     // allMarkers.addAll(list);
   }
 
-@override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -640,7 +700,6 @@ class _MapScreenState extends State<MapPage> {
                   myLocationButtonEnabled: true,
                   mapType: MapType.normal,
                   myLocationEnabled: true,
-                  
                 ),
               ),
             ],
@@ -655,7 +714,7 @@ class _MapScreenState extends State<MapPage> {
       //             _center = LatLng(position.latitude, position.longitude);
       //           });
       //         },
-      //         child: Icon(Icons.location_on), 
+      //         child: Icon(Icons.location_on),
       // ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );

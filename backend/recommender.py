@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask import jsonify, make_response, request
 import json, requests
+import random
 import numpy as np
 
 RETRIEVAL_URL = "http://localhost:8501/v1/models/retrieval:predict"
@@ -14,14 +15,14 @@ CORS(app)
 
 @app.route("/recommend", methods=["POST"])
 def get_recommendations():
-    user_id = request.get_json()["user_id"]
+    user_id = str(random.randint(0, 999))
     retrieval_request = json.dumps({"instances": [user_id]})
     retrieval_response = requests.post(RETRIEVAL_URL, data=retrieval_request)
     store_candidates = retrieval_response.json()["predictions"][0]["output_2"]
 
     ranking_queries = [{
         "user_id": u,
-        "store": m.decode("utf-8")
+        "store": m[:10]
     } for (u, m) in zip([user_id] * NUM_OF_CANDIDATES, store_candidates)]
     ranking_request = json.dumps({"instances": ranking_queries})
     ranking_response = requests.post(RANKING_URL, data=ranking_request)
