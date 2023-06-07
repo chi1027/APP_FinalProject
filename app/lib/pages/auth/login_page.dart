@@ -177,9 +177,11 @@ class _LoginPageState extends State<LoginPage> {
               await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
                   .gettingUserData(email);
           // saving the values to our shared preferences
+          String photo = "https://imgur.com/a/kCUMtGj";
           await HelperFunctions.saveUserLoggedInStatus(true);
           await HelperFunctions.saveUserEmailSF(email);
           await HelperFunctions.saveUserNameSF(snapshot.docs[0]['fullName']);
+          await HelperFunctions.saveUserPhotoSF(photo);
           nextScreenReplace(context, BottomNavigation(1));
         } else {
           showSnackbar(context, Colors.red, value);
@@ -201,6 +203,7 @@ class _LoginPageState extends State<LoginPage> {
         await HelperFunctions.saveUserLoggedInStatus(true);
         await HelperFunctions.saveUserEmailSF(value.email);
         await HelperFunctions.saveUserNameSF(value.displayName);
+        await HelperFunctions.saveUserPhotoSF(value.photo);
         nextScreenReplace(context, BottomNavigation(1));
       }
     );

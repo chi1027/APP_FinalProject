@@ -21,6 +21,7 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage>{
   String userName = "";
   String email = "";
+  String userPhoto = "";
   AuthService authService = AuthService();
 
   @override
@@ -37,6 +38,11 @@ class _UserPageState extends State<UserPage>{
     await HelperFunctions.getUserNameFromSF().then((val) {
       setState(() {
         userName = val!;
+      });
+    });
+    await HelperFunctions.getUserPhotoFromSF().then((val) {
+      setState(() {
+        userPhoto = val!;
       });
     });
   }
@@ -66,11 +72,10 @@ class _UserPageState extends State<UserPage>{
                                         borderRadius: BorderRadius.circular(10),
                                         //color: Colors.grey,
                                         child:
-                                        IconButton(
-                                          icon: Icon(Icons.account_circle,
-                                            color: Colors.black38,
-                                            size: 100,),
-                                          onPressed: () => {},
+                                        CircleAvatar(
+                                          backgroundImage:
+                                              Image.network(userPhoto).image,
+                                          radius: 100,
                                         ),
                                       ),
                                     )
