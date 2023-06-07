@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'sightPage.dart';
 
 class UserFavoritePage extends StatelessWidget {
   @override
@@ -96,25 +97,36 @@ class _SliverAppBarExampleState extends State<SliverAppBarExample> {
                                           ),
                                           child: Padding(
                                               padding: EdgeInsets.only(left:10, right: 10, top: 10, bottom: 10),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                      store.toString(),
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 20,
-                                                        fontFamily: 'Courgette',)
-                                                  ),
-                                                  Text(
-                                                      money.toString(),
-                                                      style: TextStyle(
-                                                        color: Colors.black54,
-                                                        fontSize: 15,
-                                                        fontFamily: 'Courgette',)
-                                                  ),
-                                                ],
-                                              )
+                                              child: MaterialButton(
+                                                  padding: EdgeInsets.zero,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.only(
+                                                          topLeft: Radius.circular(15),
+                                                          bottomLeft: Radius.circular(15))),
+                                                  elevation: 0,
+                                                  onPressed: (){
+                                                    Navigator.push(context, MaterialPageRoute(builder: (context) => SightPage(store.toString())));
+                                                  },
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                          store.toString(),
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 20,
+                                                            fontFamily: 'Courgette',)
+                                                      ),
+                                                      Text(
+                                                          money.toString(),
+                                                          style: TextStyle(
+                                                            color: Colors.black54,
+                                                            fontSize: 15,
+                                                            fontFamily: 'Courgette',)
+                                                      ),
+                                                    ],
+                                                  )
+                                              ),
                                           )
                                       ),
                                     ],
