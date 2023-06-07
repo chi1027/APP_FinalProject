@@ -350,12 +350,49 @@ class _MapScreenState extends State<MapPage> {
       type: StoreType.beverage,
     ),
     MapMarker(
-      latLang: const LatLng(
-        22.993581845376646,
-        120.22603831398831,
-      ),
+      latLang: const LatLng(22.995411113332963, 120.21800188473888),
+      name: "五桐號WooTEA台南成大店",
+      type: StoreType.beverage,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.991195814145932, 120.22533804487325),
+      name: "萬波島嶼紅茶Wanpo Tea Shop-台南東寧店",
+      type: StoreType.beverage,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.99364555900917, 120.2264768279007),
+      name: "迷客夏Milksha 臺南東安店",
+      type: StoreType.beverage,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.992310343184364, 120.21752239685841),
+      name: "無飲台南一中店（現萃茶專賣店）",
+      type: StoreType.beverage,
+    ),
+    MapMarker(
+      latLang: const LatLng(22.993581845376646,120.22603831398831),
       name: '在島之後After Island. 餐酒館',
       type: StoreType.bar,
+    ),
+    MapMarker(
+      latLang: LatLng(22.991980387727615, 120.22752993394406), 
+      name: "牛棚手作燒物-酒攤", 
+      type: StoreType.bar
+    ),
+    MapMarker(
+      latLang: LatLng(222.991926794917624, 120.22787923954894), 
+      name: "Cheers Bar 無囯籍", 
+      type: StoreType.bar
+    ),
+    MapMarker(
+      latLang: LatLng(22.991498994454464, 120.22334660090179), 
+      name: "Bar Whisper", 
+      type: StoreType.bar
+    ),
+    MapMarker(
+      latLang: LatLng(22.999086682094855, 120.23180850453491), 
+      name: "Midnight Tainan", 
+      type: StoreType.bar
     ),
     MapMarker(
       latLang: const LatLng(22.99352406850043, 120.22317354825209),
