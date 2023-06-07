@@ -14,11 +14,14 @@ class Sight{
 class SightPage extends StatelessWidget {
   String sightName;
   SightPage(this.sightName);
+  late String re1 = "無";
+  late String re2 = "無";
+  late String re3 = "無";
   @override
   Widget build(BuildContext context) {
     ////////////////////////////////////////////////////////////////////////////////////
     // func(sightName) return Sight;
-    Sight sight = Sight(1, sightName, "j3zj6u xj4", 4.9, "drink",400);
+    Sight sight = Sight(1, sightName, "台南市東區勝利路143號", 4.5, "drink",100);
     ////////////////////////////////////////////////////////////////////////////////////
     return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -133,6 +136,8 @@ class SightPage extends StatelessWidget {
                               ),
                             ],
                           ),
+                          ///////////////////////////////////////////////////////////////////////////////////////////
+                          //推薦系統
                           SizedBox(height: 8),
                           Row(
                             children: <Widget>[
@@ -147,7 +152,7 @@ class SightPage extends StatelessWidget {
                             children: <Widget>[
                               SizedBox(width: 4),
                               Text(
-                                "植作茶",
+                                re1.toString(),
                                 style: TextStyle(fontSize: 16),
                               ),
                             ],
@@ -158,7 +163,7 @@ class SightPage extends StatelessWidget {
                               SizedBox(width: 4),
                               GestureDetector(
                                 child: Text(
-                                  "植作茶",
+                                  re2.toString(),
                                   style: TextStyle(fontSize: 16),
                                 ),
                               ),
@@ -169,12 +174,12 @@ class SightPage extends StatelessWidget {
                             children: <Widget>[
                               SizedBox(width: 4),
                               Text(
-                                "植作茶",
+                                re3.toString(),
                                 style: TextStyle(fontSize: 16),
-
                               ),
                             ],
                           ),
+                          /////////////////////////////////////////////////////////////////////////////////////
                         ],
                       ),
                     ),
