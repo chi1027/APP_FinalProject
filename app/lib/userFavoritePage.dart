@@ -21,8 +21,8 @@ class SliverAppBarExample extends StatefulWidget {
 class _SliverAppBarExampleState extends State<SliverAppBarExample> {
   /////////////////////////////////////////////////////////////////////////////////////
   //func(user.ID)return dir; //愛好搜尋
-  var dir = [{"store":"ooo","money":"400"},{"store":"maco","money":"400"},
-    {"store":"yayaya","money":"400"}];
+  var dir = [{"store":"甘谷咖啡","money":"100"},{"store":"五桐號WooTEA台南成大店","money":"100"},
+    {"store":"Cheers Bar 無囯籍","money":"100"}];
   /////////////////////////////////////////////////////////////////////////////////////
 
 // [SliverAppBar]s are typically used in [CustomScrollView.slivers], which in
@@ -103,14 +103,14 @@ class _SliverAppBarExampleState extends State<SliverAppBarExample> {
                                                       store.toString(),
                                                       style: TextStyle(
                                                         color: Colors.black,
-                                                        fontSize: 30,
+                                                        fontSize: 20,
                                                         fontFamily: 'Courgette',)
                                                   ),
                                                   Text(
                                                       money.toString(),
                                                       style: TextStyle(
                                                         color: Colors.black54,
-                                                        fontSize: 20,
+                                                        fontSize: 15,
                                                         fontFamily: 'Courgette',)
                                                   ),
                                                 ],
