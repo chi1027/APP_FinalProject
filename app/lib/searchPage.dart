@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'sightPage.dart';
 
 var key;
 
@@ -58,7 +59,7 @@ class _SliverAppBarExampleState extends State<SliverAppBarExample> {
                               icon: const Icon(Icons.arrow_back_ios),
                               color: Colors.black,
                               onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavigation()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavigation(1)));
                               },
                             )
                           ),
@@ -103,7 +104,8 @@ class _SliverAppBarExampleState extends State<SliverAppBarExample> {
                           return Container(
                             width: 500,
                             height: 180,
-                            child: Column(
+                            child:
+                            Column(
                               children: [
                                 Container(
                                   width: 500.0,
@@ -118,70 +120,82 @@ class _SliverAppBarExampleState extends State<SliverAppBarExample> {
                                   ),
                                   child: Padding(
                                     padding: EdgeInsets.only(left:10, right: 10, top: 10, bottom: 10),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                                store.toString(),
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 30,
-                                                  fontFamily: 'Courgette',)
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.location_on,
-                                              color: Colors.blue[300],
-                                              size: 20,
-                                            ),
-                                            Text(
-                                                dis.toString(),
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20,
-                                                  fontFamily: 'Courgette',)
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.star,
-                                              color: Colors.yellow[200],
-                                              size: 20,
-                                            ),
-                                            Text(
-                                                star.toString(),
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20,
-                                                  fontFamily: 'Courgette',)
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.money,
-                                              color: Colors.green[400],
-                                              size: 20,
-                                            ),
-                                            Text(
-                                                money.toString(),
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20,
-                                                  fontFamily: 'Courgette',)
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    )
+                                    child:
+                                      MaterialButton(
+                                      padding: EdgeInsets.zero,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(15),
+                                              bottomLeft: Radius.circular(15))),
+                                      elevation: 0,
+                                      onPressed: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => SightPage(store.toString())));
+                                      },
+                                      child:Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                  store.toString(),
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 30,
+                                                    fontFamily: 'Courgette',)
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Icons.location_on,
+                                                color: Colors.blue[300],
+                                                size: 20,
+                                              ),
+                                              Text(
+                                                  dis.toString(),
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 20,
+                                                    fontFamily: 'Courgette',)
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Icons.star,
+                                                color: Colors.yellow[200],
+                                                size: 20,
+                                              ),
+                                              Text(
+                                                  star.toString(),
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 20,
+                                                    fontFamily: 'Courgette',)
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Icons.money,
+                                                color: Colors.green[400],
+                                                size: 20,
+                                              ),
+                                              Text(
+                                                  money.toString(),
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 20,
+                                                    fontFamily: 'Courgette',)
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      )
+                                  ),
                                   )
                                 ),
                               ],
