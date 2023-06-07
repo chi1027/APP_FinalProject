@@ -21,7 +21,7 @@ class SliverAppBarExample extends StatefulWidget {
 class _SliverAppBarExampleState extends State<SliverAppBarExample> {
   /////////////////////////////////////////////////////////////////////////////////////
   //func(user.ID)return dir; //成就搜尋
-  var dir = [{"store":"Dr.Bean","date":"2023/6/8","money":"100","star":"4.5"},{"store":"五桐號WooTEA台南成大店", "date":"2023/6/8","money":"100","star":"4.5"},
+  var dir = [{"store":"50嵐 成大店","date":"2023/6/8","money":"100","star":"4.5"},{"store":"五桐號WooTEA台南成大店", "date":"2023/6/8","money":"100","star":"4.5"},
     {"store":"Cheers Bar 無囯籍","date":"2023/6/8","money":"100","star":"4.5"}];
   /////////////////////////////////////////////////////////////////////////////////////
 
