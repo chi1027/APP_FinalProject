@@ -193,7 +193,9 @@ class _UserPageState extends State<UserPage>{
                                           side:  const BorderSide(color: Colors.black38, width: 1)
                                       ),
                                       elevation: 0,
-                                      onPressed: () => {},
+                                      onPressed: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => UserCommentPage()));
+                                      },
                                       child: Row(
                                         children: [
                                           Spacer(flex: 4,),
@@ -242,7 +244,9 @@ class _UserPageState extends State<UserPage>{
                                           side:  const BorderSide(color: Colors.black38, width: 1)
                                       ),
                                       elevation: 0,
-                                      onPressed: () => {},
+                                      onPressed: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => UserFavoritePage()));
+                                      },
                                       child: Row(
                                         children: [
                                           Spacer(flex: 5,),
